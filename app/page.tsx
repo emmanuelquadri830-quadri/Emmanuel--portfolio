@@ -1,5 +1,5 @@
 import { Nav } from '@/components/Nav'
-import { Hero } from '@/components/Hero'
+import ParticleHero from '@/components/ParticleHero'
 import { Work } from '@/components/Work'
 import { Experience } from '@/components/Experience'
 import { About } from '@/components/About'
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main>
       <Nav />
-      <Hero />
+      <ParticleHero />
       <Work />
       <Experience />
       <About />
