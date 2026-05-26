@@ -125,7 +125,7 @@ class AnimationController {
 
   private readonly changeEventTime = 0.32
   private readonly startDotYOffset = 28
-  private readonly numberOfStars = 5000
+  private readonly numberOfStars = 900
   private readonly trailLength = 80
 
   // Public so Star.render() can read them without bracket-notation hacks
@@ -272,7 +272,7 @@ class AnimationController {
 // ─── Words ────────────────────────────────────────────────────────────────────
 
 const WORDS = ['Design', 'Build', 'Problem Solver', 'Clarity', 'Intent'] as const
-const WORD_DURATION = 1200 // ms between word changes
+const WORD_DURATION = 650 // ms between word changes
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -326,9 +326,9 @@ export default function SpiralIntro() {
     return () => timers.forEach(clearTimeout)
   }, [])
 
-  // Auto-dismiss once all words have played + small buffer
+  // Auto-dismiss quickly so the intro cannot block the portfolio if canvas work lags.
   useEffect(() => {
-    const t = window.setTimeout(dismiss, WORDS.length * WORD_DURATION + 600)
+    const t = window.setTimeout(dismiss, WORDS.length * WORD_DURATION + 450)
     return () => clearTimeout(t)
   }, [dismiss])
 
