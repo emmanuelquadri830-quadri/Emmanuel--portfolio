@@ -307,7 +307,7 @@ export function Work() {
                 // Arc (rainbow) position
                 const baseRadius = Math.min(containerSize.width, containerSize.height * 1.5)
                 const arcRadius = baseRadius * (isMobile ? 1.4 : 1.1)
-                const arcApexY = containerSize.height * (isMobile ? 0.35 : 0.25)
+                const arcApexY = containerSize.height * (isMobile ? 0.2 : 0.1)
                 const arcCenterY = arcApexY + arcRadius
                 const spreadAngle = isMobile ? 100 : 130
                 const startAngle = -90 - spreadAngle / 2
