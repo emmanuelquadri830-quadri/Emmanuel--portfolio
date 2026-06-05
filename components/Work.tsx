@@ -36,8 +36,8 @@ type AnimationPhase = 'scatter' | 'line' | 'circle' | 'arc'
 
 const TOTAL_IMAGES = 20
 const MAX_SCROLL = 1400
-const IMG_WIDTH = 80
-const IMG_HEIGHT = 114
+const IMG_WIDTH = 104
+const IMG_HEIGHT = 138
 
 const ITEMS = Array.from({ length: TOTAL_IMAGES }, (_, i) => projects[i % projects.length])
 
@@ -99,10 +99,10 @@ function FlipCard({ project, target }: FlipCardProps) {
           className="absolute inset-0 h-full w-full overflow-hidden rounded-xl shadow-lg bg-surface-2 flex flex-col items-center justify-center p-3 border border-amber/30"
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
-          <p className="text-[7px] font-bold text-amber uppercase tracking-widest mb-1.5 text-center">
+          <p className="text-[9px] font-bold text-amber uppercase tracking-widest mb-1.5 text-center">
             {project.name}
           </p>
-          <p className="text-[9px] font-medium text-ink/80 text-center">View case study →</p>
+          <p className="text-[11px] font-medium text-ink/80 text-center">View case study →</p>
         </a>
       </motion.div>
     </motion.div>
@@ -321,7 +321,7 @@ export function Work() {
               if (introPhase === 'scatter') {
                 target = scatterPositions[i]
               } else if (introPhase === 'line') {
-                const spacing = 70
+                const spacing = 90
                 const totalW = TOTAL_IMAGES * spacing
                 target = { x: i * spacing - totalW / 2, y: 0, rotation: 0, scale: 1, opacity: 1 }
               } else {

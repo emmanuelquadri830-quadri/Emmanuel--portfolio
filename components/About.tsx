@@ -48,9 +48,8 @@ export function About() {
             </h2>
 
             <p className="text-ink-muted text-sm leading-relaxed mb-5">
-              Product Designer with 3+ years creating intuitive, user-centered
-              digital products across SaaS, EdTech, marketing, and enterprise
-              platforms.
+              My name is Quadri Emmanuel Adetayo, and I’m a Senior Product Designer with 5+ years creating intuitive, user-centered
+              digital products across SaaS, EdTech, marketing, and enterprise platforms.
             </p>
             <p className="text-ink-muted text-sm leading-relaxed mb-10">
               Skilled in user research, wireframing, prototyping, usability
