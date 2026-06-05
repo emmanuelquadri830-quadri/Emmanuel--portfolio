@@ -20,7 +20,7 @@ const stats = [
   },
 ]
 
-const tools = ['Figma', 'Framer', 'Webflow', 'WordPress', 'Adobe XD']
+const tools = ['Figma', 'CSS', 'HTML', 'WordPress', 'VS Code', 'React', 'Next.Js', 'Vercel']
 
 export function About() {
   return (

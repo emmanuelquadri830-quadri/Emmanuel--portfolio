@@ -1,0 +1,20 @@
+
+> qe-portfolio@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.5s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.5s (1249 modules)
+ GET / 200 in 5720ms
+ GET / 200 in 24ms
+ ✓ Compiled in 576ms (1231 modules)
+ GET / 200 in 82ms
+ GET / 200 in 20ms
+ GET / 200 in 20ms
+ GET / 200 in 127ms
+ GET / 200 in 57ms
+ GET / 200 in 62ms

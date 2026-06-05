@@ -4,9 +4,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const socials = [
-  { label: 'LI', href: 'https://linkedin.com/in/quadri-emmanuel-adetayo' },
-  { label: 'BE', href: 'https://www.behance.net/quadriadetayo' },
-  { label: 'DR', href: 'https://dribbble.com/quadriemmanuel' },
+  { label: 'LI', href: 'https://www.linkedin.com/in/emmanuel-quadri-uiux-~-ai-14101b241/' },
+  { label: 'BE', href: 'https://www.behance.net/Quadriemmanueldesign' },
 ]
 
 export function Contact() {
