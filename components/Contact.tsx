@@ -1,75 +1,99 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-// Add your social links here, or leave the array empty to hide the row entirely
-const socials: { label: string; href: string }[] = [
-  // { label: 'LinkedIn', href: 'https://linkedin.com/in/YOUR_HANDLE' },
-  // { label: 'Behance',  href: 'https://behance.net/YOUR_HANDLE' },
-  // { label: 'Dribbble', href: 'https://dribbble.com/YOUR_HANDLE' },
-  // { label: 'Figma',    href: 'https://figma.com/@YOUR_HANDLE' },
+const socials = [
+  { label: 'LI', href: 'https://linkedin.com/in/quadri-emmanuel-adetayo' },
+  { label: 'BE', href: 'https://www.behance.net/quadriadetayo' },
+  { label: 'DR', href: 'https://dribbble.com/quadriemmanuel' },
 ]
 
 export function Contact() {
+  const [copied, setCopied] = useState<string | null>(null)
+
+  const copyEmail = (email: string) => {
+    navigator.clipboard.writeText(email)
+    setCopied(email)
+    setTimeout(() => setCopied(null), 2000)
+  }
+
   return (
-    <section id="contact" className="px-8 lg:px-16 py-28 lg:py-36">
-      <div className="max-w-7xl mx-auto">
-        {/* CTA block */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
+    <section id="contact" className="relative border-t border-edge bg-surface flex flex-col">
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_80%,rgba(200,150,90,0.08)_0%,transparent_65%)]" />
+
+      {/* Main CTA */}
+      <div className="flex flex-col items-center justify-center px-6 py-32 lg:py-48 text-center">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-24"
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+          className="text-[10px] font-medium tracking-[0.3em] uppercase text-amber mb-10"
         >
-          <span className="text-[11px] tracking-[0.22em] uppercase text-amber block mb-8">
-            Get in Touch
-          </span>
+          Available for work
+        </motion.p>
 
-          <h2 className="font-display text-[52px] xs:text-[64px] lg:text-[88px] leading-[0.92] tracking-tight mb-12">
-            Let&apos;s make<br />
-            something<br />
-            <em className="italic text-amber">great</em> together.
-          </h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display text-[clamp(3rem,10vw,7.5rem)] leading-[0.88] tracking-tight text-ink mb-14"
+        >
+          Let&apos;s get to<br />know each other
+        </motion.h2>
 
-          <a
-            href="mailto:immalex02@gmail.com"
-            className="inline-block font-display text-[22px] lg:text-[28px] text-amber border-b-2 border-amber pb-1 hover:opacity-60 transition-opacity duration-200"
-          >
-            immalex02@gmail.com
-          </a>
-        </motion.div>
-
-        {/* Footer row */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="border-t border-edge pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-ink-muted text-[11px] tracking-wide"
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="flex flex-col sm:flex-row items-center gap-3"
         >
-          <span>
-            Quadri Emmanuel Adetayo · Lagos, Nigeria · +234 903 657 8466
-          </span>
-
-          {socials.length > 0 && (
-            <div className="flex gap-6">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tracking-[0.15em] uppercase hover:text-ink transition-colors duration-200"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
-          )}
-
-          <span>© 2025 QEA</span>
+          <button
+            onClick={() => copyEmail('emmanuelquadri830@gmail.com')}
+            className="group inline-flex items-center gap-3 bg-ink text-surface px-8 py-4 rounded-full text-[11px] font-bold tracking-[0.24em] uppercase hover:bg-amber hover:text-ink transition-all duration-300 cursor-pointer select-none"
+          >
+            EMMANUELQUADRI830@GMAIL.COM
+            <span className="text-base leading-none transition-transform duration-200 group-hover:scale-110">
+              {copied === 'emmanuelquadri830@gmail.com' ? '✓' : '⧉'}
+            </span>
+          </button>
         </motion.div>
+
+        {copied && (
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="mt-4 text-[10px] tracking-widest uppercase text-amber"
+          >
+            Copied!
+          </motion.p>
+        )}
+      </div>
+
+      {/* Footer bar */}
+      <div className="relative border-t border-edge px-8 lg:px-16 py-5 flex items-center justify-between text-[10px] font-medium tracking-[0.22em] uppercase text-ink-muted">
+        <div className="flex items-center gap-6">
+          {socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-amber transition-colors duration-200"
+            >
+              {s.label}
+            </a>
+          ))}
+        </div>
+
+        <span className="text-ink-muted">
+          Quadri Emmanuel &mdash; 25&copy;
+        </span>
       </div>
     </section>
   )
