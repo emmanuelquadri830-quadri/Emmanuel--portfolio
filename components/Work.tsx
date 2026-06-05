@@ -35,9 +35,9 @@ const projects: Project[] = [
 type AnimationPhase = 'scatter' | 'line' | 'circle' | 'arc'
 
 const TOTAL_IMAGES = 20
-const MAX_SCROLL = 3000
-const IMG_WIDTH = 60
-const IMG_HEIGHT = 85
+const MAX_SCROLL = 1400
+const IMG_WIDTH = 80
+const IMG_HEIGHT = 114
 
 const ITEMS = Array.from({ length: TOTAL_IMAGES }, (_, i) => projects[i % projects.length])
 
@@ -60,7 +60,7 @@ function FlipCard({ project, target }: FlipCardProps) {
         scale: target.scale,
         opacity: target.opacity,
       }}
-      transition={{ type: 'spring', stiffness: 40, damping: 15 }}
+      transition={{ type: 'spring', stiffness: 80, damping: 22 }}
       style={{
         position: 'absolute',
         width: IMG_WIDTH,
@@ -114,16 +114,29 @@ export function Work() {
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // Refs readable inside event handlers without stale closures
+  const isInView = useRef(false)
+  const introComplete = useRef(false)
+  const morphValueRef = useRef(0)
+
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
-    const observer = new ResizeObserver((entries) => {
+    const resizeObs = new ResizeObserver((entries) => {
       const { width, height } = entries[0].contentRect
       setContainerSize({ width, height })
     })
-    observer.observe(el)
+    resizeObs.observe(el)
     setContainerSize({ width: el.offsetWidth, height: el.offsetHeight })
-    return () => observer.disconnect()
+
+    // Only intercept scroll when section is substantially on screen
+    const intersectObs = new IntersectionObserver(
+      ([entry]) => { isInView.current = entry.intersectionRatio >= 0.5 },
+      { threshold: 0.5 }
+    )
+    intersectObs.observe(el)
+
+    return () => { resizeObs.disconnect(); intersectObs.disconnect() }
   }, [])
 
   const virtualScroll = useMotionValue(0)
@@ -134,12 +147,28 @@ export function Work() {
     if (!container) return
 
     const handleWheel = (e: WheelEvent) => {
-      const atTop = scrollRef.current <= 0 && e.deltaY < 0
-      const atBottom = scrollRef.current >= MAX_SCROLL && e.deltaY > 0
-      // At boundaries, let the page scroll naturally
+      // Don't touch scroll if section isn't substantially in view
+      if (!isInView.current) return
+
+      const scrollingDown = e.deltaY > 0
+      const scrollingUp = e.deltaY < 0
+
+      // During intro animation: block downward escape so the circle plays fully
+      if (!introComplete.current) {
+        if (scrollingDown) e.preventDefault()
+        return
+      }
+
+      const atTop = scrollRef.current <= 0 && scrollingUp
+      // Only release downward when the spring has visually caught up (arc fully formed)
+      const atBottom = scrollRef.current >= MAX_SCROLL && scrollingDown && morphValueRef.current >= 0.94
+
       if (atTop || atBottom) return
+
       e.preventDefault()
-      const next = Math.min(Math.max(scrollRef.current + e.deltaY, 0), MAX_SCROLL)
+      // Cap per-event delta so trackpad momentum bursts don't teleport cards
+      const clamped = Math.min(Math.abs(e.deltaY), 60) * Math.sign(e.deltaY)
+      const next = Math.min(Math.max(scrollRef.current + clamped, 0), MAX_SCROLL)
       scrollRef.current = next
       virtualScroll.set(next)
     }
@@ -147,10 +176,11 @@ export function Work() {
     let touchStartY = 0
     const handleTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY }
     const handleTouchMove = (e: TouchEvent) => {
+      if (!isInView.current || !introComplete.current) return
       const deltaY = touchStartY - e.touches[0].clientY
       touchStartY = e.touches[0].clientY
       const atTop = scrollRef.current <= 0 && deltaY < 0
-      const atBottom = scrollRef.current >= MAX_SCROLL && deltaY > 0
+      const atBottom = scrollRef.current >= MAX_SCROLL && deltaY > 0 && morphValueRef.current >= 0.94
       if (atTop || atBottom) return
       e.preventDefault()
       const next = Math.min(Math.max(scrollRef.current + deltaY, 0), MAX_SCROLL)
@@ -159,7 +189,7 @@ export function Work() {
     }
 
     container.addEventListener('wheel', handleWheel, { passive: false })
-    container.addEventListener('touchstart', handleTouchStart, { passive: false })
+    container.addEventListener('touchstart', handleTouchStart, { passive: true })
     container.addEventListener('touchmove', handleTouchMove, { passive: false })
     return () => {
       container.removeEventListener('wheel', handleWheel)
@@ -168,13 +198,14 @@ export function Work() {
     }
   }, [virtualScroll])
 
+  // Tighter springs = less lag, cards snap to position instead of drifting
   const morphProgress = useTransform(virtualScroll, [0, 600], [0, 1])
-  const smoothMorph = useSpring(morphProgress, { stiffness: 40, damping: 20 })
-  const scrollRotate = useTransform(virtualScroll, [600, 3000], [0, 360])
-  const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 40, damping: 20 })
+  const smoothMorph = useSpring(morphProgress, { stiffness: 80, damping: 28 })
+  const scrollRotate = useTransform(virtualScroll, [600, 1400], [0, 360])
+  const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 80, damping: 28 })
 
   const mouseX = useMotionValue(0)
-  const smoothMouseX = useSpring(mouseX, { stiffness: 30, damping: 20 })
+  const smoothMouseX = useSpring(mouseX, { stiffness: 40, damping: 22 })
 
   useEffect(() => {
     const container = containerRef.current
@@ -190,7 +221,10 @@ export function Work() {
 
   useEffect(() => {
     const t1 = setTimeout(() => setIntroPhase('line'), 500)
-    const t2 = setTimeout(() => setIntroPhase('circle'), 2500)
+    const t2 = setTimeout(() => {
+      setIntroPhase('circle')
+      introComplete.current = true  // unlock scroll capture after circle forms
+    }, 2500)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
@@ -211,7 +245,7 @@ export function Work() {
   const [parallaxValue, setParallaxValue] = useState(0)
 
   useEffect(() => {
-    const u1 = smoothMorph.on('change', setMorphValue)
+    const u1 = smoothMorph.on('change', (v) => { setMorphValue(v); morphValueRef.current = v })
     const u2 = smoothScrollRotate.on('change', setRotateValue)
     const u3 = smoothMouseX.on('change', setParallaxValue)
     return () => { u1(); u2(); u3() }
@@ -295,7 +329,7 @@ export function Work() {
                 const minDim = Math.min(containerSize.width, containerSize.height)
 
                 // Circle position
-                const circleRadius = Math.min(minDim * 0.35, 350)
+                const circleRadius = Math.min(minDim * 0.48, 460)
                 const circleAngle = (i / TOTAL_IMAGES) * 360
                 const circleRad = (circleAngle * Math.PI) / 180
                 const circlePos = {
@@ -304,12 +338,14 @@ export function Work() {
                   rotation: circleAngle + 90,
                 }
 
-                // Arc (rainbow) position
-                const baseRadius = Math.min(containerSize.width, containerSize.height * 1.5)
-                const arcRadius = baseRadius * (isMobile ? 1.4 : 1.1)
-                const arcApexY = containerSize.height * (isMobile ? 0.2 : 0.1)
+                // Arc: sized so edge cards sit at the left/right screen edges
+                // arcRadius derived from half-width ÷ cos(half-spread) so edges land exactly at edge
+                const spreadAngle = isMobile ? 90 : 120
+                const halfSpreadRad = ((spreadAngle / 2) * Math.PI) / 180
+                const arcRadius = (containerSize.width / 2) / Math.cos(halfSpreadRad)
+                // Apex sits at ~30% from top → -20% relative to flex center
+                const arcApexY = -containerSize.height * (isMobile ? 0.12 : 0.20)
                 const arcCenterY = arcApexY + arcRadius
-                const spreadAngle = isMobile ? 100 : 130
                 const startAngle = -90 - spreadAngle / 2
                 const step = spreadAngle / (TOTAL_IMAGES - 1)
                 const scrollProgress = Math.min(Math.max(rotateValue / 360, 0), 1)
@@ -320,7 +356,7 @@ export function Work() {
                   x: Math.cos(arcRad) * arcRadius + parallaxValue,
                   y: Math.sin(arcRad) * arcRadius + arcCenterY,
                   rotation: currentArcAngle + 90,
-                  scale: isMobile ? 1.4 : 1.8,
+                  scale: isMobile ? 1.0 : 1.2,
                 }
 
                 target = {
@@ -343,14 +379,13 @@ export function Work() {
               )
             })}
           </div>
+          {/* Footer label — pinned to bottom of the scroll container */}
+          <div className="absolute bottom-6 left-0 right-0 z-10 flex items-center justify-center gap-3 text-[9px] font-medium uppercase tracking-[0.22em] text-ink-muted pointer-events-none">
+            <span className="h-px w-8 bg-amber/55" />
+            Behance case studies
+            <span className="h-px w-8 bg-amber/55" />
+          </div>
         </div>
-      </div>
-
-      {/* Footer label */}
-      <div className="relative z-10 flex items-center justify-center gap-3 py-6 text-[9px] font-medium uppercase tracking-[0.22em] text-ink-muted">
-        <span className="h-px w-8 bg-amber/55" />
-        Behance case studies
-        <span className="h-px w-8 bg-amber/55" />
       </div>
     </section>
   )

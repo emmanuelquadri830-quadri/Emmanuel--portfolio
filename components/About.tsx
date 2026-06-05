@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 const stats = [
   {
-    value: '3+',
+    value: '5+',
     label: 'Years of Experience',
     sub: 'SaaS, EdTech, marketing & enterprise platforms',
   },
