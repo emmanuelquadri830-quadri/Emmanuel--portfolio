@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Zap } from 'lucide-react'
+import { FaLinkedinIn, FaBehance, FaXTwitter, FaInstagram } from 'react-icons/fa6'
 
 const cn = (...classes: (string | undefined | null | false)[]): string =>
   classes.filter(Boolean).join(' ')
@@ -200,7 +201,7 @@ export default function ParticleHero() {
         >
           <Zap className="h-4 w-4 text-amber" />
           <span className="text-sm font-medium text-ink-muted">
-            Product Designer · Lagos, Nigeria
+            Product Designer & Front-end Developer · Lagos, Nigeria
           </span>
         </motion.div>
 
@@ -223,8 +224,9 @@ export default function ParticleHero() {
           animate="visible"
           className="max-w-2xl mx-auto text-lg text-ink-muted mb-10"
         >
-          I design intuitive, user-centered digital products across SaaS, EdTech, and enterprise
-          — turning business goals into clear, accessible experiences.
+          Product Designer and Frontend Developer building digital products that are clean,
+          accessible, and built to scale. I move ideas from concept to production — designing
+          the experience, then writing the code that ships it.
         </motion.p>
 
         {/* CTA */}
@@ -235,12 +237,41 @@ export default function ParticleHero() {
           animate="visible"
         >
           <a
-            href="#work"
+            href="https://www.behance.net/Quadriemmanueldesign"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-amber text-surface font-semibold rounded-lg shadow-lg hover:bg-amber/90 transition-colors duration-300"
           >
             View my work
             <ArrowRight className="h-5 w-5" />
           </a>
+        </motion.div>
+
+        {/* Social icons */}
+        <motion.div
+          custom={4}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex items-center justify-center gap-4 mt-8"
+        >
+          {[
+            { href: 'https://www.linkedin.com/in/emmanuel-quadri-uiux-~-ai-14101b241', label: 'LinkedIn',   icon: <FaLinkedinIn className="h-4 w-4" /> },
+            { href: 'https://www.behance.net/Quadriemmanueldesign',                    label: 'Behance',    icon: <FaBehance    className="h-4 w-4" /> },
+            { href: 'https://x.com/immalex_83274',                                    label: 'X / Twitter', icon: <FaXTwitter   className="h-4 w-4" /> },
+            { href: 'https://www.instagram.com/immalex_art/',                         label: 'Instagram',  icon: <FaInstagram  className="h-4 w-4" /> },
+          ].map(({ href, icon, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="flex items-center justify-center w-9 h-9 rounded-full border border-ink/20 text-ink-muted hover:border-amber hover:text-amber transition-colors duration-200"
+            >
+              {icon}
+            </a>
+          ))}
         </motion.div>
       </div>
     </section>

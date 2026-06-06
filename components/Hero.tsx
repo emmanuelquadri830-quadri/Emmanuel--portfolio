@@ -46,7 +46,7 @@ export function Hero() {
             variants={fadeUp}
             className="text-[11px] tracking-[0.22em] uppercase text-amber"
           >
-            Product Designer · Lagos, Nigeria
+            Product Designer & Front-end Developer · Lagos, Nigeria
           </motion.p>
 
           <motion.h1
@@ -65,8 +65,7 @@ export function Hero() {
             variants={fadeUp}
             className="text-ink-muted text-sm leading-relaxed max-w-xs"
           >
-            Turning business goals into clear, accessible experiences — across
-            SaaS, EdTech, and enterprise platforms.
+            Turning business goals into clear, accessible experiences across SaaS, EdTech, and enterprise platforms.
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-wrap gap-6 items-center pt-2">

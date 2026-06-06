@@ -1,6 +1,19 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import {
+  SiTypescript, SiJavascript, SiHtml5, SiCss,
+  SiReact, SiNextdotjs, SiThreedotjs, SiFramer, SiTailwindcss,
+  SiFigma, SiWebflow, SiWordpress,
+  SiGit, SiGithub, SiVercel,
+} from 'react-icons/si'
+import { VscVscode } from 'react-icons/vsc'
+import type { IconType } from 'react-icons'
+
+// Adobe XD has no Simple Icons entry — inline text fallback
+const AdobeXdIcon: IconType = ({ style, className }: { style?: React.CSSProperties; className?: string }) => (
+  <span style={{ ...style, fontSize: '9px', fontWeight: 700, lineHeight: 1, letterSpacing: '-0.03em' }} className={className}>XD</span>
+)
 
 const stats = [
   {
@@ -20,7 +33,53 @@ const stats = [
   },
 ]
 
-const tools = ['Figma', 'CSS', 'HTML', 'WordPress', 'VS Code', 'React', 'Next.Js', 'Vercel']
+interface Tool { name: string; icon: IconType; color: string }
+
+const stack: { num: string; category: string; tools: Tool[] }[] = [
+  {
+    num: '01',
+    category: 'LANGUAGES',
+    tools: [
+      { name: 'TypeScript',  icon: SiTypescript,  color: '#3178C6' },
+      { name: 'JavaScript',  icon: SiJavascript,  color: '#F7DF1E' },
+      { name: 'HTML',        icon: SiHtml5,        color: '#E34F26' },
+      { name: 'CSS',         icon: SiCss,          color: '#1572B6' },
+    ],
+  },
+  {
+    num: '02',
+    category: 'FRAMEWORKS & LIBRARIES',
+    tools: [
+      { name: 'React',              icon: SiReact,       color: '#61DAFB' },
+      { name: 'Next.js',            icon: SiNextdotjs,   color: '#F2EDE4' },
+      { name: 'Three.js',           icon: SiThreedotjs,  color: '#F2EDE4' },
+      { name: 'React Three Fiber',  icon: SiReact,       color: '#61DAFB' },
+      { name: 'Framer Motion',      icon: SiFramer,      color: '#8B5CF6' },
+      { name: 'Tailwind CSS',       icon: SiTailwindcss, color: '#06B6D4' },
+    ],
+  },
+  {
+    num: '03',
+    category: 'DESIGN TOOLS',
+    tools: [
+      { name: 'Figma',     icon: SiFigma,    color: '#F24E1E' },
+      { name: 'Framer',    icon: SiFramer,   color: '#8B5CF6' },
+      { name: 'Webflow',   icon: SiWebflow,  color: '#4353FF' },
+      { name: 'WordPress', icon: SiWordpress, color: '#21759B' },
+      { name: 'Adobe XD',  icon: AdobeXdIcon, color: '#FF61F6' },
+    ],
+  },
+  {
+    num: '04',
+    category: 'TOOLING & PLATFORMS',
+    tools: [
+      { name: 'Git',     icon: SiGit,    color: '#F05032' },
+      { name: 'GitHub',  icon: SiGithub, color: '#F2EDE4' },
+      { name: 'Vercel',  icon: SiVercel, color: '#F2EDE4' },
+      { name: 'VS Code', icon: VscVscode, color: '#007ACC' },
+    ],
+  },
+]
 
 export function About() {
   return (
@@ -29,8 +88,9 @@ export function About() {
       className="px-8 lg:px-16 py-28 lg:py-36 bg-surface-2"
     >
       <div className="max-w-7xl mx-auto">
+        {/* ── Bio + Stats grid ── */}
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-          {/* — Bio column — */}
+          {/* Bio column */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -48,30 +108,18 @@ export function About() {
             </h2>
 
             <p className="text-ink-muted text-sm leading-relaxed mb-5">
-              My name is Quadri Emmanuel Adetayo, and I’m a Senior Product Designer with 5+ years creating intuitive, user-centered
+              My name is Quadri Emmanuel Adetayo, and I'm a Senior Product Designer with 5+ years creating intuitive, user-centered
               digital products across SaaS, EdTech, marketing, and enterprise platforms.
             </p>
-            <p className="text-ink-muted text-sm leading-relaxed mb-10">
+            <p className="text-ink-muted text-sm leading-relaxed">
               Skilled in user research, wireframing, prototyping, usability
               testing, interaction design, and design systems. I work closely
               with cross-functional teams to turn business goals into clear,
               accessible, effective experiences.
             </p>
-
-            {/* Tool tags */}
-            <div className="flex flex-wrap gap-2">
-              {tools.map((tool) => (
-                <span
-                  key={tool}
-                  className="text-[11px] px-3 py-1 border border-edge rounded-full text-ink-muted tracking-wide hover:border-amber hover:text-amber transition-colors duration-200"
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
           </motion.div>
 
-          {/* — Stats column — */}
+          {/* Stats column */}
           <div className="space-y-0">
             {stats.map((stat, i) => (
               <motion.div
@@ -95,6 +143,61 @@ export function About() {
             ))}
           </div>
         </div>
+
+        {/* ── Tools & Stack ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-24 lg:mt-32"
+        >
+          <p className="text-[11px] tracking-[0.22em] uppercase text-amber mb-4">
+            Stack
+          </p>
+          <h3 className="font-display text-2xl lg:text-3xl text-ink mb-16">
+            Languages, frameworks, and tools I work with.
+          </h3>
+
+          <div className="space-y-16">
+            {stack.map((group, gi) => (
+              <motion.div
+                key={group.num}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.6, delay: gi * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {/* Row: number — divider — category label */}
+                <div className="flex items-center gap-5 mb-8">
+                  <span className="font-display text-3xl text-ink-muted shrink-0">
+                    {group.num}
+                  </span>
+                  <div className="flex-1 h-px bg-edge" />
+                  <span className="text-[11px] font-medium tracking-[0.25em] uppercase text-ink-muted shrink-0">
+                    {group.category}
+                  </span>
+                </div>
+
+                {/* Pills */}
+                <div className="flex flex-wrap gap-4">
+                  {group.tools.map((tool) => {
+                    const Icon = tool.icon
+                    return (
+                      <div
+                        key={tool.name}
+                        className="inline-flex items-center gap-3 px-5 py-3.5 rounded-xl border border-edge bg-surface hover:border-amber/40 transition-colors duration-200 cursor-default"
+                      >
+                        <Icon style={{ color: tool.color }} className="h-5 w-5 shrink-0" />
+                        <span className="text-[15px] text-ink-muted">{tool.name}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   )
