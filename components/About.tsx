@@ -3,17 +3,12 @@
 import { motion } from 'framer-motion'
 import {
   SiTypescript, SiJavascript, SiHtml5, SiCss,
-  SiReact, SiNextdotjs, SiThreedotjs, SiFramer, SiTailwindcss,
-  SiFigma, SiWebflow, SiWordpress,
+  SiReact, SiNextdotjs, SiFramer, SiTailwindcss,
+  SiFigma, SiClaude,
   SiGit, SiGithub, SiVercel,
 } from 'react-icons/si'
 import { VscVscode } from 'react-icons/vsc'
 import type { IconType } from 'react-icons'
-
-// Adobe XD has no Simple Icons entry — inline text fallback
-const AdobeXdIcon: IconType = ({ style, className }: { style?: React.CSSProperties; className?: string }) => (
-  <span style={{ ...style, fontSize: '9px', fontWeight: 700, lineHeight: 1, letterSpacing: '-0.03em' }} className={className}>XD</span>
-)
 
 const stats = [
   {
@@ -50,23 +45,19 @@ const stack: { num: string; category: string; tools: Tool[] }[] = [
     num: '02',
     category: 'FRAMEWORKS & LIBRARIES',
     tools: [
-      { name: 'React',              icon: SiReact,       color: '#61DAFB' },
-      { name: 'Next.js',            icon: SiNextdotjs,   color: '#F2EDE4' },
-      { name: 'Three.js',           icon: SiThreedotjs,  color: '#F2EDE4' },
-      { name: 'React Three Fiber',  icon: SiReact,       color: '#61DAFB' },
-      { name: 'Framer Motion',      icon: SiFramer,      color: '#8B5CF6' },
-      { name: 'Tailwind CSS',       icon: SiTailwindcss, color: '#06B6D4' },
+      { name: 'React',         icon: SiReact,       color: '#61DAFB' },
+      { name: 'Next.js',       icon: SiNextdotjs,   color: '#F2EDE4' },
+      { name: 'Framer Motion', icon: SiFramer,      color: '#8B5CF6' },
+      { name: 'Tailwind CSS',  icon: SiTailwindcss, color: '#06B6D4' },
     ],
   },
   {
     num: '03',
     category: 'DESIGN TOOLS',
     tools: [
-      { name: 'Figma',     icon: SiFigma,    color: '#F24E1E' },
-      { name: 'Framer',    icon: SiFramer,   color: '#8B5CF6' },
-      { name: 'Webflow',   icon: SiWebflow,  color: '#4353FF' },
-      { name: 'WordPress', icon: SiWordpress, color: '#21759B' },
-      { name: 'Adobe XD',  icon: AdobeXdIcon, color: '#FF61F6' },
+      { name: 'Figma',   icon: SiFigma,   color: '#F24E1E' },
+      { name: 'Framer',  icon: SiFramer,  color: '#8B5CF6' },
+      { name: 'Claude',  icon: SiClaude,  color: '#D97757' },
     ],
   },
   {
