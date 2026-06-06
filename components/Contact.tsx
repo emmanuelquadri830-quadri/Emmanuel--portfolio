@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const socials = [
-  { label: 'LI', href: 'https://www.linkedin.com/in/emmanuel-quadri-uiux-~-ai-14101b241/' },
+  { label: 'LI', href: 'https://www.linkedin.com/in/emmanuel-quadri-uiux-%7E-ai-14101b241' },
   { label: 'BE', href: 'https://www.behance.net/Quadriemmanueldesign' },
 ]
 
