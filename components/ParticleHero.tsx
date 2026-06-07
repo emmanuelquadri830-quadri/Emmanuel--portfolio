@@ -213,9 +213,7 @@ export default function ParticleHero() {
           animate="visible"
           className="font-display text-5xl md:text-8xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400"
         >
-          Design that{' '}
-          <em className="italic" style={{ color: '#C8965A' }}>earns</em>
-          {' '}a second look.
+          Quadri Emmanuel
         </motion.h1>
 
         {/* Paragraph */}
