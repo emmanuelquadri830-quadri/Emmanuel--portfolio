@@ -201,7 +201,7 @@ export default function ParticleHero() {
         >
           <Zap className="h-4 w-4 text-amber" />
           <span className="text-sm font-medium text-ink-muted">
-            Product Designer & Front-end Developer · Lagos, Nigeria
+            AI-Enhanced Product Designer & Front-end Developer · 5+ years crafting intuitive digital experiences
           </span>
         </motion.div>
 
@@ -213,7 +213,9 @@ export default function ParticleHero() {
           animate="visible"
           className="font-display text-5xl md:text-8xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400"
         >
-          Quadri Emmanuel
+          Design that{' '}
+          <em className="italic" style={{ color: '#C8965A' }}>earns</em>
+          {' '}a second look.
         </motion.h1>
 
         {/* Paragraph */}
