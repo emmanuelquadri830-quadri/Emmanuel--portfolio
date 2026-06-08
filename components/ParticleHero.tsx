@@ -239,7 +239,7 @@ export default function ParticleHero() {
             href="https://www.behance.net/Quadriemmanueldesign"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-amber text-surface font-semibold rounded-lg shadow-lg hover:bg-amber/90 transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-amber text-surface font-semibold rounded-lg hover:bg-amber/90 transition-colors duration-300"
           >
             Explore Case Studies
             <ArrowRight className="h-5 w-5" />
@@ -266,7 +266,7 @@ export default function ParticleHero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="flex items-center justify-center w-9 h-9 rounded-full border border-ink/20 text-ink-muted hover:border-amber hover:text-amber transition-colors duration-200"
+              className="group flex items-center justify-center w-9 h-9 rounded-full border border-white/25 text-white/80 hover:border-amber hover:text-amber hover:bg-amber/10 hover:scale-105 transition-all duration-200"
             >
               {icon}
             </a>
