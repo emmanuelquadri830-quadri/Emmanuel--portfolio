@@ -1,7 +1,22 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { experience, type ExperienceEntry } from '@/lib/experience'
+
+const listVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+}
+
+const reducedItemVariants = {
+  hidden: { opacity: 0 },
+  show:   { opacity: 1, transition: { duration: 0.3 } },
+}
 
 export function Experience() {
   return (
@@ -22,10 +37,20 @@ export function Experience() {
         </motion.div>
 
         {/* Timeline list */}
-        <div>
-          {experience.map((entry, i) => (
-            <ExperienceRow key={entry.id} entry={entry} index={i} />
-          ))}
+        <div className="relative">
+          {/* Vertical line — draws in from top */}
+          <TimelineLine />
+
+          <motion.div
+            variants={listVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-80px' }}
+          >
+            {experience.map((entry) => (
+              <ExperienceRow key={entry.id} entry={entry} />
+            ))}
+          </motion.div>
         </div>
 
         {/* Cap line */}
@@ -41,28 +66,46 @@ export function Experience() {
   )
 }
 
-function ExperienceRow({
-  entry,
-  index,
-}: {
-  entry: ExperienceEntry
-  index: number
-}) {
+function TimelineLine() {
+  const shouldReduce = useReducedMotion()
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{
-        duration: 0.65,
-        delay: index * 0.07,
-        ease: [0.16, 1, 0.3, 1],
+      initial={{ scaleY: shouldReduce ? 1 : 0 }}
+      whileInView={{ scaleY: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      style={{ transformOrigin: 'top' }}
+      className="absolute left-0 top-0 bottom-0 w-px bg-edge hidden lg:block"
+    />
+  )
+}
+
+function PresentDot() {
+  const shouldReduce = useReducedMotion()
+  return (
+    <motion.span
+      animate={shouldReduce ? {} : {
+        opacity: [1, 0.35, 1],
+        scale:   [1, 1.25, 1],
       }}
+      transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+      className="w-1.5 h-1.5 rounded-full bg-amber shrink-0"
+    />
+  )
+}
+
+function ExperienceRow({ entry }: { entry: ExperienceEntry }) {
+  const shouldReduce = useReducedMotion()
+  const variants = shouldReduce ? reducedItemVariants : itemVariants
+
+  return (
+    <motion.div
+      variants={variants}
       className="border-t border-edge py-10
                  grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-16
-                 group"
+                 group lg:pl-6"
     >
-      {/* ── Left: period + badge ── */}
+      {/* Left: period + badge */}
       <div className="flex lg:flex-col items-start gap-3 pt-0.5">
         <span className="text-[12px] text-ink-muted tracking-wide leading-relaxed">
           {entry.period}
@@ -74,14 +117,13 @@ function ExperienceRow({
                         text-amber border border-amber/40 rounded-full
                         px-2.5 py-0.5"
           >
-            {/* Live dot */}
-            <span className="w-1.5 h-1.5 rounded-full bg-amber animate-pulse shrink-0" />
+            <PresentDot />
             Present
           </span>
         )}
       </div>
 
-      {/* ── Right: role, company, description ── */}
+      {/* Right: role, company, description */}
       <div>
         <h3
           className="font-display text-[26px] lg:text-[30px] leading-tight mb-1

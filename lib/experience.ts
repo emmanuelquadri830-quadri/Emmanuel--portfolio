@@ -1,64 +1,59 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// EDIT YOUR EXPERIENCE HERE
-// Entries are displayed most-recent first.
-// ─────────────────────────────────────────────────────────────────────────────
-
 export interface ExperienceEntry {
   id: string
   role: string
   company: string
   location: string
   period: string
-  current?: boolean     // shows a live "Present" badge
+  current?: boolean
   description: string
 }
 
 export const experience: ExperienceEntry[] = [
   {
     id: '01',
-    role: 'Graphics Design / UI/UX Designer',
+    role: 'Product Designer / UI/UX Designer',
     company: 'Punch Digital Agency',
-    location: 'San Francisco (Remote)',
+    location: 'Lagos, Nigeria',
     period: 'Mar 2024 — Present',
     current: true,
     description:
-      'Designing user-centered digital products and polished UI components in Figma, Framer, and WordPress, with organized file structures for clean developer handoff.',
+      'Lead design across client products spanning SaaS, AI, and marketing platforms, owning end-to-end flows from research to developer handoff. Build production-ready interfaces in Figma with organized component libraries and tokens that cut handoff friction with engineering.',
   },
   {
     id: '02',
-    role: 'Graphics Design Instructor',
+    role: 'UI/UX Instructor',
     company: 'Greenware Academy',
-    location: 'Lagos',
-    period: 'May 2025 — Present',
-    current: true,
+    location: 'Lagos, Nigeria',
+    period: 'May 2025 — Jan 2026',
+    current: false,
     description:
-      'Teaching UI/UX fundamentals — research, wireframing, prototyping, usability testing — and industry tools like Figma and Adobe XD, mentoring students toward real-world portfolios.',
+      'Trained students in UI/UX fundamentals — user research, wireframing, prototyping, and usability testing — through hands-on, project-based learning, mentoring them toward real-world portfolios.',
   },
   {
     id: '03',
     role: 'UI/UX Designer / Graphics Designer',
     company: 'Shirewood Technologies',
-    location: 'UK (Remote)',
+    location: 'United Kingdom (Remote)',
     period: 'Oct 2024 — Mar 2025',
     description:
-      'Designed a Learning Management System dashboard with role-specific interfaces for teachers, parents, admins, and instructors, simplifying access to performance metrics and class activities.',
+      'Designed a multi-role LMS dashboard for teachers, parents, administrators, and instructors, tailoring each interface to its user group\'s workflow and simplifying access to performance metrics and class activities. Delivered polished UI components in Figma with organized files for clean developer handoff.',
   },
   {
     id: '04',
-    role: 'Graphics Design / UI/UX Designer',
+    role: 'Graphics Design / UI/UX Designer (Internship)',
     company: 'Flexisaf Edu',
-    location: 'Lagos',
+    location: 'Lagos, Nigeria',
     period: 'Mar 2023 — Aug 2023',
     description:
-      'Built a design system that cut design discrepancies 60%, and ran user research with 250+ participants that improved key task completion rates 50%.',
+      'Built a cohesive design system used across multiple platforms, reducing design discrepancies by 60%. Ran user research and testing with 250+ participants, generating insights that improved key task completion rates by 50%.',
   },
   {
     id: '05',
-    role: 'UI/UX Designer',
+    role: 'UI/UX Designer (Internship)',
     company: 'HNG',
-    location: 'Lagos',
+    location: 'Lagos, Nigeria',
     period: 'Jan 2022 — Jul 2022',
     description:
-      'Created responsive, user-centered interfaces and high-fidelity Figma prototypes, collaborating with developers for accurate implementation.',
+      'Created visual and interaction designs for responsive, intuitive experiences, built high-fidelity prototypes in Figma, and collaborated with developers to ensure accurate implementation.',
   },
 ]
