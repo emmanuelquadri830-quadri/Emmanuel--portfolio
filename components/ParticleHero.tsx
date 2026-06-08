@@ -201,7 +201,7 @@ export default function ParticleHero() {
         >
           <Zap className="h-4 w-4 text-amber" />
           <span className="text-sm font-medium text-ink-muted">
-            AI-Enhanced Product Designer & Front-end Developer · 5+ years crafting intuitive digital experiences
+            Product Designer | Frontend Developer | 5+ Years Experience
           </span>
         </motion.div>
 
@@ -211,9 +211,10 @@ export default function ParticleHero() {
           variants={fadeUpVariants}
           initial="hidden"
           animate="visible"
-          className="font-display text-5xl md:text-8xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400"
+          className="font-display text-[64px] xs:text-[76px] lg:text-[100px] leading-[0.92] tracking-tight mb-6"
         >
-          Quadri Emmanuel
+          Quadri<br />
+          <em className="not-italic text-amber">Emmanuel</em>
         </motion.h1>
 
         {/* Paragraph */}
@@ -224,9 +225,7 @@ export default function ParticleHero() {
           animate="visible"
           className="max-w-2xl mx-auto text-lg text-ink-muted mb-10"
         >
-          Product Designer and Frontend Developer building digital products that are clean,
-          accessible, and built to scale. I move ideas from concept to production — designing
-          the experience, then writing the code that ships it.
+          AI specialist and product designer building scalable digital products for startups — from UX strategy to production-ready interfaces.
         </motion.p>
 
         {/* CTA */}
@@ -242,7 +241,7 @@ export default function ParticleHero() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-amber text-surface font-semibold rounded-lg shadow-lg hover:bg-amber/90 transition-colors duration-300"
           >
-            View my work
+            Explore Case Studies
             <ArrowRight className="h-5 w-5" />
           </a>
         </motion.div>
