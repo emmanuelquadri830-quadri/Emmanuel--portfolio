@@ -92,7 +92,7 @@ export function About() {
               About
             </span>
 
-            <h2 className="font-display text-[48px] lg:text-[60px] leading-tight mb-8">
+            <h2 className="font-display text-[36px] sm:text-[44px] lg:text-[60px] leading-tight mb-8">
               Designing with<br />
               <em className="italic">purpose</em>{' '}
               and clarity.
@@ -125,7 +125,7 @@ export function About() {
                 }}
                 className="border-b border-edge py-8 last:border-none"
               >
-                <div className="font-display text-[64px] lg:text-[72px] leading-none text-amber mb-1">
+                <div className="font-display text-[52px] lg:text-[72px] leading-none text-amber mb-1">
                   {stat.value}
                 </div>
                 <p className="text-sm text-ink mb-1">{stat.label}</p>
@@ -177,10 +177,10 @@ export function About() {
                     return (
                       <div
                         key={tool.name}
-                        className="inline-flex items-center gap-3 px-5 py-3.5 rounded-xl border border-edge bg-surface hover:border-amber/40 transition-colors duration-200 cursor-default"
+                        className="inline-flex items-center gap-2 sm:gap-3 px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl border border-edge bg-surface hover:border-amber/40 transition-colors duration-200 cursor-default"
                       >
-                        <Icon style={{ color: tool.color }} className="h-5 w-5 shrink-0" />
-                        <span className="text-[15px] text-ink-muted">{tool.name}</span>
+                        <Icon style={{ color: tool.color }} className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+                        <span className="text-[13px] sm:text-[15px] text-ink-muted">{tool.name}</span>
                       </div>
                     )
                   })}

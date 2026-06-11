@@ -197,10 +197,10 @@ export default function ParticleHero() {
           variants={fadeUpVariants}
           initial="hidden"
           animate="visible"
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber/10 border border-amber/20 mb-6 backdrop-blur-sm"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber/10 border border-amber/20 mb-6 backdrop-blur-sm max-w-[90vw]"
         >
-          <Zap className="h-4 w-4 text-amber" />
-          <span className="text-sm font-medium text-ink-muted">
+          <Zap className="h-3.5 w-3.5 text-amber shrink-0" />
+          <span className="text-[11px] sm:text-sm font-medium text-ink-muted truncate">
             Product Designer | Frontend Developer | 5+ Years Experience
           </span>
         </motion.div>
@@ -211,7 +211,7 @@ export default function ParticleHero() {
           variants={fadeUpVariants}
           initial="hidden"
           animate="visible"
-          className="font-display text-[64px] xs:text-[76px] lg:text-[100px] leading-[0.92] tracking-tight mb-6"
+          className="font-display text-[48px] xs:text-[60px] md:text-[76px] lg:text-[100px] leading-[0.92] tracking-tight mb-6"
         >
           Quadri<br />
           <em className="not-italic text-amber">Emmanuel</em>
@@ -223,7 +223,7 @@ export default function ParticleHero() {
           variants={fadeUpVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-2xl mx-auto text-lg text-ink-muted mb-10"
+          className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-ink-muted mb-10 px-2"
         >
           AI specialist and product designer building scalable digital products for startups — from UX strategy to production-ready interfaces.
         </motion.p>

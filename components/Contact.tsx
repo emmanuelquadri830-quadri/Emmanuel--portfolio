@@ -53,7 +53,7 @@ export function Contact() {
         >
           <button
             onClick={() => copyEmail('emmanuelquadri830@gmail.com')}
-            className="group inline-flex items-center gap-3 bg-ink text-surface px-8 py-4 rounded-full text-[11px] font-bold tracking-[0.24em] uppercase hover:bg-amber hover:text-ink transition-all duration-300 cursor-pointer select-none"
+            className="group inline-flex items-center gap-2 sm:gap-3 bg-ink text-surface px-5 sm:px-8 py-3 sm:py-4 rounded-full text-[10px] sm:text-[11px] font-bold tracking-[0.18em] sm:tracking-[0.24em] uppercase hover:bg-amber hover:text-ink transition-all duration-300 cursor-pointer select-none max-w-[90vw]"
           >
             EMMANUELQUADRI830@GMAIL.COM
             <span className="text-base leading-none transition-transform duration-200 group-hover:scale-110">
@@ -75,7 +75,7 @@ export function Contact() {
       </div>
 
       {/* Footer bar */}
-      <div className="relative border-t border-edge px-8 lg:px-16 py-5 flex items-center justify-between text-[10px] font-medium tracking-[0.22em] uppercase text-ink-muted">
+      <div className="relative border-t border-edge px-6 lg:px-16 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] font-medium tracking-[0.22em] uppercase text-ink-muted">
         <div className="flex items-center gap-6">
           {socials.map((s) => (
             <a
