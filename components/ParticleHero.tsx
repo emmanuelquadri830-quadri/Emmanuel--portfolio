@@ -150,14 +150,9 @@ export default function ParticleHero() {
       }
     }
 
-    function getSurfaceColor(): string {
-      const v = getComputedStyle(document.documentElement).getPropertyValue('--color-surface').trim()
-      return v ? `rgb(${v})` : '#0B0B0B'
-    }
-
     function animate(): void {
       animationFrameId = requestAnimationFrame(animate)
-      ctx!.fillStyle = getSurfaceColor()
+      ctx!.fillStyle = document.documentElement.classList.contains('dark') ? '#0B0B0B' : '#F7F4EF'
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
       for (const p of particles) p.update(mouse)
       connect()
