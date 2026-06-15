@@ -134,7 +134,7 @@ function ExperienceRow({ entry }: { entry: ExperienceEntry }) {
 
         <p className="text-[14px] tracking-[0.12em] text-ink-muted mb-4">
           {entry.company}
-          <span className="mx-2 opacity-30">·</span>
+          <span className="mx-2 opacity-30">/</span>
           {entry.location}
         </p>
 

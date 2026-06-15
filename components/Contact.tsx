@@ -154,7 +154,7 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const subject = encodeURIComponent(`Portfolio inquiry — ${form.service || 'General'}`)
+    const subject = encodeURIComponent(`Portfolio inquiry: ${form.service || 'General'}`)
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nService: ${form.service}\n\n${form.message}`
     )
@@ -259,7 +259,7 @@ export function Contact() {
             {/* Message */}
             <FloatingTextarea
               label="Tell me more"
-              placeholder="Give me a rough idea — what you're building, who it's for, and when you'd like to get started."
+              placeholder="Give me a rough idea: what you are building, who it is for, and when you would like to get started."
               required
               value={form.message}
               onChange={v => setForm(f => ({ ...f, message: v }))}
@@ -364,7 +364,7 @@ export function Contact() {
 
             {/* Decorative tagline */}
             <p className="mt-4 text-[11px] text-ink/25 leading-relaxed px-1">
-              Prefer async? Any channel above works — I respond thoughtfully to all of them.
+              Prefer async? Any channel above works. I respond thoughtfully to all of them.
             </p>
           </div>
 

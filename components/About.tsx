@@ -22,9 +22,9 @@ const stats = [
     sub: 'via unified design system at Flexisaf',
   },
   {
-    value: '500+',
+    value: '250+',
     label: 'Research participants',
-    sub: '+25% usability  +30% customer satisfaction',
+    sub: '+25% usability   +30% customer satisfaction',
   },
 ]
 

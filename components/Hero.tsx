@@ -46,7 +46,7 @@ export function Hero() {
             variants={fadeUp}
             className="text-[11px] tracking-[0.22em] uppercase text-amber"
           >
-            AI-Enhanced Product Designer & Front-end Developer · 5+ years crafting intuitive digital experiences
+            AI Enhanced Product Designer & Frontend Developer   5+ years crafting intuitive digital experiences
           </motion.p>
 
           <motion.h1

@@ -308,7 +308,7 @@ export function Work() {
               Things I've designed
             </h2>
             <p className="text-sm text-ink-muted max-w-md leading-relaxed">
-              A selection of product and UI/UX work — apps, dashboards, and websites built to be
+              A selection of product and UI/UX work: apps, dashboards, and websites built to be
               clear, usable, and genuinely nice to use. Scroll to explore, hover to flip.
             </p>
           </motion.div>
