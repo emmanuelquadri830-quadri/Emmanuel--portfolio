@@ -118,7 +118,6 @@ class Star {
 class AnimationController {
   private timeline: gsap.core.Timeline
   private time = 0
-  private canvas: HTMLCanvasElement
   private ctx: CanvasRenderingContext2D
   private size: number
   private stars: Star[] = []
@@ -134,12 +133,11 @@ class AnimationController {
   readonly viewZoom = 100
 
   constructor(
-    canvas: HTMLCanvasElement,
+    _canvas: HTMLCanvasElement,
     ctx: CanvasRenderingContext2D,
     _dpr: number,
     size: number
   ) {
-    this.canvas = canvas
     this.ctx = ctx
     this.size = size
     this.timeline = gsap.timeline()
@@ -229,9 +227,14 @@ class AnimationController {
     this.showProjectedDot(new Vector3D(0, dy, this.cameraTravelDistance), 2.5)
   }
 
+  private isDark(): boolean {
+    return document.documentElement.classList.contains('dark')
+  }
+
   render(): void {
     const { ctx, size } = this
-    ctx.fillStyle = document.documentElement.classList.contains('dark') ? '#0B0B0B' : '#F7F4EF'
+    const dark = this.isDark()
+    ctx.fillStyle = dark ? '#0B0B0B' : '#F7F4EF'
     ctx.fillRect(0, 0, size, size)
     ctx.save()
     ctx.translate(size / 2, size / 2)
@@ -239,17 +242,18 @@ class AnimationController {
     const t2 = this.constrain(this.map(this.time, this.changeEventTime, 1, 0, 1), 0, 1)
     ctx.rotate(-Math.PI * this.ease(t2, 2.7))
     this.drawTrail(t1)
-    ctx.fillStyle = 'white'
+    ctx.fillStyle = dark ? '#C8965A' : '#FF6B2B'
     for (const star of this.stars) star.render(t1, this)
     this.drawStartDot()
     ctx.restore()
   }
 
   private drawTrail(t1: number): void {
+    const dark = this.isDark()
     for (let i = 0; i < this.trailLength; i++) {
       const f = this.map(i, 0, this.trailLength, 1.1, 0.1)
       const sw = (1.3 * (1 - t1) + 3.0 * Math.sin(Math.PI * t1)) * f
-      this.ctx.fillStyle = 'white'
+      this.ctx.fillStyle = dark ? '#C8965A' : '#FF6B2B'
       this.ctx.lineWidth = sw
       const pos = this.spiralPath(t1 - 0.00015 * i)
       const rotated = this.rotate(
@@ -363,7 +367,7 @@ export default function SpiralIntro() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: 'easeInOut' }}
-                className="block text-ink text-[11px] md:text-[13px] tracking-[0.55em] uppercase font-light"
+                className="block text-[13px] md:text-[15px] tracking-[0.55em] uppercase font-light text-[#FF6B2B] dark:text-amber"
               >
                 {WORDS[wordIndex]}
               </motion.span>
@@ -372,7 +376,7 @@ export default function SpiralIntro() {
 
           {/* Skip hint */}
           <motion.p
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-ink/25 text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-light pointer-events-none select-none whitespace-nowrap"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#FF6B2B]/40 dark:text-amber/40 text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-light pointer-events-none select-none whitespace-nowrap"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.0, duration: 0.6 }}

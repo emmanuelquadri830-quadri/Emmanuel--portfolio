@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const contactCards = [
   {
@@ -52,26 +52,105 @@ const contactCards = [
 
 const services = [
   'UI/UX Design',
-  'Frontend Development',
+  'Frontend Dev',
   'Design System',
   'Brand Identity',
   'Prototype & Testing',
   'Consulting',
 ]
 
-const ArrowIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-    <line x1="7" y1="17" x2="17" y2="7" />
-    <polyline points="7 7 17 7 17 17" />
-  </svg>
-)
+function FloatingInput({
+  label,
+  type = 'text',
+  placeholder,
+  value,
+  onChange,
+  required,
+}: {
+  label: string
+  type?: string
+  placeholder: string
+  value: string
+  onChange: (v: string) => void
+  required?: boolean
+}) {
+  const [focused, setFocused] = useState(false)
+  const lifted = focused || value.length > 0
 
-const inputClass =
-  'w-full bg-surface border border-edge rounded-lg px-4 py-3 text-[13px] text-ink placeholder:text-ink/25 focus:outline-none focus:border-amber/50 transition-colors duration-200'
+  return (
+    <div className="relative">
+      <label
+        className={`absolute left-4 pointer-events-none transition-all duration-200 ${
+          lifted
+            ? 'top-2 text-[9px] tracking-[0.18em] uppercase text-amber'
+            : 'top-1/2 -translate-y-1/2 text-[13px] text-ink/30'
+        }`}
+      >
+        {label}
+      </label>
+      <input
+        type={type}
+        placeholder={lifted ? placeholder : ''}
+        required={required}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className={`w-full bg-surface border rounded-xl px-4 pt-6 pb-3 text-[13px] text-ink focus:outline-none transition-all duration-200 ${
+          focused ? 'border-amber/60 shadow-[0_0_0_3px_rgba(200,150,90,0.08)]' : 'border-edge hover:border-edge/80'
+        }`}
+      />
+    </div>
+  )
+}
+
+function FloatingTextarea({
+  label,
+  placeholder,
+  value,
+  onChange,
+  required,
+}: {
+  label: string
+  placeholder: string
+  value: string
+  onChange: (v: string) => void
+  required?: boolean
+}) {
+  const [focused, setFocused] = useState(false)
+  const lifted = focused || value.length > 0
+
+  return (
+    <div className="relative">
+      <label
+        className={`absolute left-4 pointer-events-none transition-all duration-200 ${
+          lifted
+            ? 'top-3 text-[9px] tracking-[0.18em] uppercase text-amber'
+            : 'top-4 text-[13px] text-ink/30'
+        }`}
+      >
+        {label}
+      </label>
+      <textarea
+        rows={5}
+        placeholder={lifted ? placeholder : ''}
+        required={required}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className={`w-full bg-surface border rounded-xl px-4 pt-8 pb-3 text-[13px] text-ink focus:outline-none resize-none transition-all duration-200 ${
+          focused ? 'border-amber/60 shadow-[0_0_0_3px_rgba(200,150,90,0.08)]' : 'border-edge hover:border-edge/80'
+        }`}
+      />
+    </div>
+  )
+}
 
 export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', service: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [hovered, setHovered] = useState<string | null>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -86,141 +165,217 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative border-t border-edge bg-surface flex flex-col overflow-hidden">
+
+      {/* Background grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: `linear-gradient(rgb(var(--color-ink)) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--color-ink)) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(200,150,90,0.07)_0%,transparent_65%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(200,150,90,0.1)_0%,transparent_60%)]" />
+      <div className="pointer-events-none absolute top-0 left-1/3 w-[600px] h-[600px] bg-amber/[0.04] rounded-full blur-3xl -translate-y-1/2" />
 
       <div className="relative max-w-7xl mx-auto w-full px-6 md:px-8 lg:px-16 py-28 lg:py-36">
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-20"
         >
-          <span className="text-[11px] tracking-[0.22em] uppercase text-amber block mb-4">
-            Available for work
-          </span>
-          <h2 className="font-display text-[36px] sm:text-[52px] lg:text-[64px] leading-tight tracking-tight text-ink">
-            Let&apos;s get to<br />
-            <em className="not-italic text-amber">know each other.</em>
-          </h2>
+          {/* Status pill */}
+          <div className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full border border-edge bg-surface-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber" />
+            </span>
+            <span className="text-[10px] tracking-[0.22em] uppercase text-amber">Available for work</span>
+          </div>
+
+          <div className="flex items-end gap-6">
+            <h2 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] leading-[0.95] tracking-tight text-ink">
+              Let&apos;s build<br />
+              <em className="not-italic text-amber">something great.</em>
+            </h2>
+            <span className="hidden lg:block font-display text-[120px] leading-none text-ink/[0.04] select-none mb-1 ml-4">
+              04
+            </span>
+          </div>
+
+          <p className="mt-6 text-[14px] text-ink/50 max-w-md leading-relaxed">
+            Got a project in mind? Drop me a message and I&apos;ll get back within 24 hours.
+          </p>
         </motion.div>
 
         {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 lg:gap-14 items-start">
 
           {/* Left: Form */}
           <motion.form
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-surface-2 border border-edge rounded-2xl p-7 lg:p-9 flex flex-col gap-5"
+            className="bg-surface-2/60 border border-edge rounded-2xl p-7 lg:p-10 flex flex-col gap-6 backdrop-blur-sm"
           >
             {/* Name + Email row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label className="text-[10px] tracking-[0.2em] uppercase text-ink/40">Your Name</label>
-                <input
-                  type="text"
-                  placeholder="John Doe"
-                  required
-                  value={form.name}
-                  onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                  className={inputClass}
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-[10px] tracking-[0.2em] uppercase text-ink/40">Your Email</label>
-                <input
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                  value={form.email}
-                  onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                  className={inputClass}
-                />
-              </div>
-            </div>
-
-            {/* Service dropdown */}
-            <div className="flex flex-col gap-2">
-              <label className="text-[10px] tracking-[0.2em] uppercase text-ink/40">What do you need?</label>
-              <select
-                value={form.service}
-                onChange={e => setForm(f => ({ ...f, service: e.target.value }))}
-                className={`${inputClass} appearance-none cursor-pointer`}
-              >
-                <option value="" disabled>Select a service...</option>
-                {services.map(s => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Message */}
-            <div className="flex flex-col gap-2">
-              <label className="text-[10px] tracking-[0.2em] uppercase text-ink/40">Tell me more</label>
-              <textarea
-                rows={5}
-                placeholder="Give me a rough idea — what you're building, who it's for, and when you'd like to get started."
+              <FloatingInput
+                label="Your Name"
+                placeholder="John Doe"
                 required
-                value={form.message}
-                onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                className={`${inputClass} resize-none`}
+                value={form.name}
+                onChange={v => setForm(f => ({ ...f, name: v }))}
+              />
+              <FloatingInput
+                label="Your Email"
+                type="email"
+                placeholder="you@example.com"
+                required
+                value={form.email}
+                onChange={v => setForm(f => ({ ...f, email: v }))}
               />
             </div>
 
+            {/* Service chips */}
+            <div className="flex flex-col gap-3">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-ink/35">What do you need?</span>
+              <div className="flex flex-wrap gap-2">
+                {services.map(s => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => setForm(f => ({ ...f, service: f.service === s ? '' : s }))}
+                    className={`px-3.5 py-1.5 rounded-full text-[11px] tracking-wide border transition-all duration-200 ${
+                      form.service === s
+                        ? 'bg-amber text-surface border-amber font-medium'
+                        : 'bg-surface border-edge text-ink/60 hover:border-amber/40 hover:text-ink'
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Message */}
+            <FloatingTextarea
+              label="Tell me more"
+              placeholder="Give me a rough idea — what you're building, who it's for, and when you'd like to get started."
+              required
+              value={form.message}
+              onChange={v => setForm(f => ({ ...f, message: v }))}
+            />
+
             {/* Submit */}
-            <button
+            <motion.button
               type="submit"
-              className="w-full flex items-center justify-center gap-3 bg-amber text-surface font-bold text-[12px] tracking-[0.18em] uppercase py-4 rounded-lg hover:bg-amber/85 transition-colors duration-300 mt-1"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative w-full overflow-hidden flex items-center justify-center gap-3 bg-amber text-surface font-semibold text-[12px] tracking-[0.18em] uppercase py-4 rounded-xl transition-colors duration-300 mt-1 group"
             >
-              {sent ? 'Opening mail client...' : 'Send Message'}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                <line x1="22" y1="2" x2="11" y2="13" />
-                <polygon points="22 2 15 22 11 13 2 9 22 2" />
-              </svg>
-            </button>
+              {/* Shimmer sweep */}
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
+
+              <AnimatePresence mode="wait">
+                {sent ? (
+                  <motion.span
+                    key="sent"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    className="flex items-center gap-2"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Opening mail client…
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="idle"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    className="flex items-center gap-2"
+                  >
+                    Send Message
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
+                      <line x1="22" y1="2" x2="11" y2="13" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.button>
           </motion.form>
 
           {/* Right: Contact cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col gap-3"
-          >
-            {contactCards.map((card) => (
-              <a
+          <div className="flex flex-col gap-3">
+            {contactCards.map((card, i) => (
+              <motion.a
                 key={card.label}
                 href={card.href}
                 target={card.href.startsWith('mailto') ? undefined : '_blank'}
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 bg-surface-2 border border-edge rounded-xl px-5 py-4 hover:border-amber/30 transition-all duration-300"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                onMouseEnter={() => setHovered(card.label)}
+                onMouseLeave={() => setHovered(null)}
+                className="group relative flex items-center gap-4 bg-surface-2/60 border border-edge rounded-xl px-5 py-4 overflow-hidden transition-all duration-300 hover:border-amber/40 hover:shadow-[0_4px_24px_rgba(200,150,90,0.08)]"
               >
+                {/* Amber left accent bar */}
+                <span
+                  className={`absolute left-0 top-0 bottom-0 w-[3px] bg-amber rounded-l-xl transition-all duration-300 ${
+                    hovered === card.label ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+
                 {/* Icon box */}
-                <div className="w-10 h-10 rounded-lg bg-amber/10 border border-amber/20 flex items-center justify-center shrink-0 text-amber group-hover:bg-amber/20 transition-colors duration-300">
+                <div className={`w-10 h-10 rounded-lg border flex items-center justify-center shrink-0 transition-all duration-300 ${
+                  hovered === card.label
+                    ? 'bg-amber text-surface border-amber'
+                    : 'bg-amber/8 border-amber/20 text-amber'
+                }`}>
                   {card.icon}
                 </div>
 
                 {/* Text */}
                 <div className="flex-1 min-w-0">
                   <p className="text-[9px] tracking-[0.2em] uppercase text-ink/35 mb-0.5">{card.label}</p>
-                  <p className="text-[13px] text-ink truncate group-hover:text-amber transition-colors duration-300">{card.value}</p>
+                  <p className={`text-[13px] truncate transition-colors duration-300 ${
+                    hovered === card.label ? 'text-amber' : 'text-ink'
+                  }`}>
+                    {card.value}
+                  </p>
                 </div>
 
                 {/* Arrow */}
-                <span className="text-ink/20 group-hover:text-amber transition-colors duration-300 shrink-0">
-                  <ArrowIcon />
+                <span className={`transition-all duration-300 shrink-0 ${
+                  hovered === card.label ? 'text-amber translate-x-0.5 -translate-y-0.5' : 'text-ink/20'
+                }`}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
                 </span>
-              </a>
+              </motion.a>
             ))}
-          </motion.div>
+
+            {/* Decorative tagline */}
+            <p className="mt-4 text-[11px] text-ink/25 leading-relaxed px-1">
+              Prefer async? Any channel above works — I respond thoughtfully to all of them.
+            </p>
+          </div>
 
         </div>
       </div>
