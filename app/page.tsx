@@ -19,6 +19,7 @@ export default function Home() {
       <Work />
       <Experience />
       <About />
+      <CoreStrengths />
       <Process />
       <ValueProp />
       <Contact />
