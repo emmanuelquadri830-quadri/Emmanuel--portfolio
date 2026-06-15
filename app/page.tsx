@@ -4,6 +4,7 @@ import ParticleHero from '@/components/ParticleHero'
 import { Work } from '@/components/Work'
 import { Experience } from '@/components/Experience'
 import { About } from '@/components/About'
+import { Process } from '@/components/Process'
 import { Contact } from '@/components/Contact'
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <Work />
       <Experience />
       <About />
+      <Process />
       <Contact />
     </main>
     </>
