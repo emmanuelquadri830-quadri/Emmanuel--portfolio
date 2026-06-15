@@ -189,15 +189,6 @@ export function Contact() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-20"
         >
-          {/* Status pill */}
-          <div className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full border border-edge bg-surface-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber" />
-            </span>
-            <span className="text-[10px] tracking-[0.22em] uppercase text-amber">Available for work</span>
-          </div>
-
           <div className="flex items-end gap-6">
             <h2 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] leading-[0.95] tracking-tight text-ink">
               Let&apos;s build<br />
