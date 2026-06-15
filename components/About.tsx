@@ -46,7 +46,7 @@ const stack: { num: string; category: string; tools: Tool[] }[] = [
     category: 'FRAMEWORKS & LIBRARIES',
     tools: [
       { name: 'React',         icon: SiReact,       color: '#61DAFB' },
-      { name: 'Next.js',       icon: SiNextdotjs,   color: '#F2EDE4' },
+      { name: 'Next.js',       icon: SiNextdotjs,   color: 'currentColor' },
       { name: 'Framer Motion', icon: SiFramer,      color: '#8B5CF6' },
       { name: 'Tailwind CSS',  icon: SiTailwindcss, color: '#06B6D4' },
     ],
@@ -65,8 +65,8 @@ const stack: { num: string; category: string; tools: Tool[] }[] = [
     category: 'TOOLING & PLATFORMS',
     tools: [
       { name: 'Git',     icon: SiGit,    color: '#F05032' },
-      { name: 'GitHub',  icon: SiGithub, color: '#F2EDE4' },
-      { name: 'Vercel',  icon: SiVercel, color: '#F2EDE4' },
+      { name: 'GitHub',  icon: SiGithub, color: 'currentColor' },
+      { name: 'Vercel',  icon: SiVercel, color: 'currentColor' },
       { name: 'VS Code', icon: VscVscode, color: '#007ACC' },
     ],
   },

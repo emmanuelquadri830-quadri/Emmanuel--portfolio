@@ -231,7 +231,8 @@ class AnimationController {
 
   render(): void {
     const { ctx, size } = this
-    ctx.fillStyle = '#0B0B0B'
+    const surfaceVal = getComputedStyle(document.documentElement).getPropertyValue('--color-surface').trim()
+    ctx.fillStyle = surfaceVal ? `rgb(${surfaceVal})` : '#0B0B0B'
     ctx.fillRect(0, 0, size, size)
     ctx.save()
     ctx.translate(size / 2, size / 2)
