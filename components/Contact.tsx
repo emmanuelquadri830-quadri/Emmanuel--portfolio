@@ -67,7 +67,7 @@ const ArrowIcon = () => (
 )
 
 const inputClass =
-  'w-full bg-surface border border-edge rounded-lg px-4 py-3 text-[13px] text-white placeholder:text-white/25 focus:outline-none focus:border-amber/50 transition-colors duration-200'
+  'w-full bg-surface border border-edge rounded-lg px-4 py-3 text-[13px] text-ink placeholder:text-ink/25 focus:outline-none focus:border-amber/50 transition-colors duration-200'
 
 export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', service: '', message: '' })
@@ -102,7 +102,7 @@ export function Contact() {
           <span className="text-[11px] tracking-[0.22em] uppercase text-amber block mb-4">
             Available for work
           </span>
-          <h2 className="font-display text-[36px] sm:text-[52px] lg:text-[64px] leading-tight tracking-tight text-white">
+          <h2 className="font-display text-[36px] sm:text-[52px] lg:text-[64px] leading-tight tracking-tight text-ink">
             Let&apos;s get to<br />
             <em className="not-italic text-amber">know each other.</em>
           </h2>
@@ -123,7 +123,7 @@ export function Contact() {
             {/* Name + Email row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <label className="text-[10px] tracking-[0.2em] uppercase text-white/40">Your Name</label>
+                <label className="text-[10px] tracking-[0.2em] uppercase text-ink/40">Your Name</label>
                 <input
                   type="text"
                   placeholder="John Doe"
@@ -134,7 +134,7 @@ export function Contact() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-[10px] tracking-[0.2em] uppercase text-white/40">Your Email</label>
+                <label className="text-[10px] tracking-[0.2em] uppercase text-ink/40">Your Email</label>
                 <input
                   type="email"
                   placeholder="you@example.com"
@@ -148,7 +148,7 @@ export function Contact() {
 
             {/* Service dropdown */}
             <div className="flex flex-col gap-2">
-              <label className="text-[10px] tracking-[0.2em] uppercase text-white/40">What do you need?</label>
+              <label className="text-[10px] tracking-[0.2em] uppercase text-ink/40">What do you need?</label>
               <select
                 value={form.service}
                 onChange={e => setForm(f => ({ ...f, service: e.target.value }))}
@@ -163,7 +163,7 @@ export function Contact() {
 
             {/* Message */}
             <div className="flex flex-col gap-2">
-              <label className="text-[10px] tracking-[0.2em] uppercase text-white/40">Tell me more</label>
+              <label className="text-[10px] tracking-[0.2em] uppercase text-ink/40">Tell me more</label>
               <textarea
                 rows={5}
                 placeholder="Give me a rough idea — what you're building, who it's for, and when you'd like to get started."
@@ -210,12 +210,12 @@ export function Contact() {
 
                 {/* Text */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-[9px] tracking-[0.2em] uppercase text-white/35 mb-0.5">{card.label}</p>
-                  <p className="text-[13px] text-white truncate group-hover:text-amber transition-colors duration-300">{card.value}</p>
+                  <p className="text-[9px] tracking-[0.2em] uppercase text-ink/35 mb-0.5">{card.label}</p>
+                  <p className="text-[13px] text-ink truncate group-hover:text-amber transition-colors duration-300">{card.value}</p>
                 </div>
 
                 {/* Arrow */}
-                <span className="text-white/20 group-hover:text-amber transition-colors duration-300 shrink-0">
+                <span className="text-ink/20 group-hover:text-amber transition-colors duration-300 shrink-0">
                   <ArrowIcon />
                 </span>
               </a>

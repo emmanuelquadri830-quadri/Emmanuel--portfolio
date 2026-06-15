@@ -266,7 +266,7 @@ export default function ParticleHero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="group flex items-center justify-center w-9 h-9 rounded-full border border-white/25 text-white/80 hover:border-amber hover:text-amber hover:bg-amber/10 hover:scale-105 transition-all duration-200"
+              className="group flex items-center justify-center w-9 h-9 rounded-full border border-ink/25 text-ink/80 hover:border-amber hover:text-amber hover:bg-amber/10 hover:scale-105 transition-all duration-200"
             >
               {icon}
             </a>

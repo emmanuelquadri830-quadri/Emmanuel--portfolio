@@ -2,13 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Light mode (default) ─── */
 :root {
-  --surface: #0B0B0B;
-  --surface-2: #141414;
-  --ink: #F2EDE4;
-  --ink-muted: #7A7570;
-  --amber: #C8965A;
-  --edge: #1D1D1D;
+  --color-surface:    247 244 239;   /* #F7F4EF */
+  --color-surface-2:  238 234 227;   /* #EEEAE3 */
+  --color-ink:         26  25  22;   /* #1A1916 */
+  --color-ink-muted:  122 117 112;   /* #7A7570 */
+  --color-amber:      200 150  90;   /* #C8965A */
+  --color-edge:       221 217 208;   /* #DDD9D0 */
+  --grain-opacity: 0.025;
+  --nav-border: rgba(0,0,0,0.06);
+  --mobile-menu-bg: rgba(247,244,239,0.97);
+  --mobile-menu-border: rgba(0,0,0,0.06);
+}
+
+/* ─── Dark mode ─── */
+.dark {
+  --color-surface:     11  11  11;   /* #0B0B0B */
+  --color-surface-2:   20  20  20;   /* #141414 */
+  --color-ink:        242 237 228;   /* #F2EDE4 */
+  --color-ink-muted:  122 117 112;   /* #7A7570 */
+  --color-amber:      200 150  90;   /* #C8965A */
+  --color-edge:        29  29  29;   /* #1D1D1D */
+  --grain-opacity: 0.04;
+  --nav-border: rgba(255,255,255,0.04);
+  --mobile-menu-bg: rgba(11,11,11,0.97);
+  --mobile-menu-border: rgba(255,255,255,0.06);
 }
 
 @layer base {
@@ -26,22 +45,18 @@
   }
 
   body {
-    background-color: #0B0B0B;
-    color: #F2EDE4;
+    background-color: rgb(var(--color-surface));
+    color: rgb(var(--color-ink));
     font-family: var(--font-dm-sans), system-ui, sans-serif;
     font-weight: 300;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-cormorant), Georgia, serif;
     font-weight: 400;
     line-height: 1.1;
@@ -53,38 +68,34 @@
   }
 
   ::selection {
-    background: #C8965A;
-    color: #0B0B0B;
+    background: rgb(var(--color-amber));
+    color: rgb(var(--color-surface));
   }
 
   /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 3px;
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: rgb(var(--color-surface)); }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--color-edge)); border-radius: 2px; }
+
+  /* Form elements inherit theme */
+  select, input, textarea {
+    background-color: rgb(var(--color-surface));
+    color: rgb(var(--color-ink));
+    color-scheme: inherit;
   }
-  ::-webkit-scrollbar-track {
-    background: #0B0B0B;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #2e2e2e;
-    border-radius: 2px;
+  .dark select, .dark input, .dark textarea {
+    color-scheme: dark;
   }
 }
 
-/* Explicit background — outside @layer so it wins over UA stylesheets */
-html,
-body {
-  background-color: #0B0B0B;
-  color: #F2EDE4;
-}
-
-/* Film grain overlay — SVG fractalNoise rendered as fixed layer */
+/* Film grain overlay */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.04;
+  opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 300px 300px;

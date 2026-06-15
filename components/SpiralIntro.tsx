@@ -336,7 +336,7 @@ export default function SpiralIntro() {
     <AnimatePresence>
       {shown && (
         <motion.div
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-[#0B0B0B] cursor-pointer"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-surface cursor-pointer"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.9, ease: 'easeInOut' }}
@@ -363,7 +363,7 @@ export default function SpiralIntro() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: 'easeInOut' }}
-                className="block text-white text-[11px] md:text-[13px] tracking-[0.55em] uppercase font-light"
+                className="block text-ink text-[11px] md:text-[13px] tracking-[0.55em] uppercase font-light"
               >
                 {WORDS[wordIndex]}
               </motion.span>
@@ -372,7 +372,7 @@ export default function SpiralIntro() {
 
           {/* Skip hint */}
           <motion.p
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/25 text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-light pointer-events-none select-none whitespace-nowrap"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-ink/25 text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-light pointer-events-none select-none whitespace-nowrap"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.0, duration: 0.6 }}

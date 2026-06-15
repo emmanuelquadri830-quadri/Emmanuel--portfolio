@@ -80,7 +80,7 @@ export function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[32px] sm:text-[42px] lg:text-[56px] leading-tight tracking-tight text-white max-w-3xl mb-20"
+          className="font-display text-[32px] sm:text-[42px] lg:text-[56px] leading-tight tracking-tight text-ink max-w-3xl mb-20"
         >
           Six steps from messy brief
           <br />to <em className="not-italic text-amber">shipped product.</em>
@@ -103,21 +103,21 @@ export function Process() {
             >
               {/* Number */}
               <div className="flex lg:flex-col items-center lg:items-start justify-between lg:justify-start gap-3">
-                <span className="font-display text-[13px] text-white/40 group-hover:text-amber/70 transition-colors duration-300 tracking-widest">
+                <span className="font-display text-[13px] text-ink/40 group-hover:text-amber/70 transition-colors duration-300 tracking-widest">
                   {step.num}
                 </span>
-                <span className="text-[9px] tracking-[0.2em] uppercase text-white/30 lg:mt-1 group-hover:text-amber/50 transition-colors duration-300">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-ink/30 lg:mt-1 group-hover:text-amber/50 transition-colors duration-300">
                   {step.tag}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="font-display text-[26px] sm:text-[30px] lg:text-[34px] leading-tight text-white group-hover:text-amber transition-colors duration-300 self-center">
+              <h3 className="font-display text-[26px] sm:text-[30px] lg:text-[34px] leading-tight text-ink group-hover:text-amber transition-colors duration-300 self-center">
                 {step.title}
               </h3>
 
               {/* Description */}
-              <p className="text-[13px] text-white/70 leading-relaxed self-center max-w-lg">
+              <p className="text-[13px] text-ink/70 leading-relaxed self-center max-w-lg">
                 {step.description}
               </p>
             </motion.div>

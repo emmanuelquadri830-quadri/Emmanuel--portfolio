@@ -56,10 +56,10 @@ export function CoreStrengths() {
 
       {/* Faint background grid */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        className="pointer-events-none absolute inset-0 opacity-[0.04] dark:opacity-[0.03]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            'linear-gradient(rgb(var(--color-ink)/0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--color-ink)/0.5) 1px, transparent 1px)',
           backgroundSize: '60px 60px',
         }}
       />
@@ -78,11 +78,11 @@ export function CoreStrengths() {
             <span className="text-[11px] tracking-[0.22em] uppercase text-amber block mb-4">
               What I Do
             </span>
-            <h2 className="font-display text-[36px] sm:text-[48px] lg:text-[56px] leading-tight tracking-tight text-white">
+            <h2 className="font-display text-[36px] sm:text-[48px] lg:text-[56px] leading-tight tracking-tight text-ink">
               My Core Strengths
             </h2>
           </div>
-          <p className="hidden lg:block text-[13px] text-white/40 max-w-[220px] leading-relaxed text-right shrink-0">
+          <p className="hidden lg:block text-[13px] text-ink/40 max-w-[220px] leading-relaxed text-right shrink-0">
             The three pillars behind every project I take on.
           </p>
         </motion.div>
@@ -99,11 +99,10 @@ export function CoreStrengths() {
             <motion.div
               key={s.title}
               variants={cardVariants}
-              className="group relative flex flex-col rounded-xl overflow-hidden cursor-default"
-              style={{ border: '1px solid rgba(255,255,255,0.07)' }}
+              className="group relative flex flex-col rounded-xl overflow-hidden cursor-default border border-edge"
             >
               {/* Card fill — dark with slight tint */}
-              <div className="absolute inset-0 bg-[#111111] group-hover:bg-[#161616] transition-colors duration-500" />
+              <div className="absolute inset-0 bg-surface-2 group-hover:bg-surface transition-colors duration-500" />
 
               {/* Oversized number watermark */}
               <div
@@ -133,12 +132,12 @@ export function CoreStrengths() {
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display text-[28px] sm:text-[32px] leading-tight tracking-tight text-white mb-5">
+                <h3 className="font-display text-[28px] sm:text-[32px] leading-tight tracking-tight text-ink mb-5">
                   {s.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-[14px] leading-[1.75] text-white/55 mb-10">
+                <p className="text-[14px] leading-[1.75] text-ink/55 mb-10">
                   {s.description}
                 </p>
 

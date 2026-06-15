@@ -51,16 +51,16 @@ export function ValueProp() {
               For Startups &amp; Businesses
             </p>
 
-            <h2 className="font-display text-[36px] sm:text-[46px] lg:text-[52px] leading-[1.05] tracking-tight text-white mb-8">
+            <h2 className="font-display text-[36px] sm:text-[46px] lg:text-[52px] leading-[1.05] tracking-tight text-ink mb-8">
               Your product deserves a designer who{' '}
               <em className="not-italic text-amber">actually ships.</em>
             </h2>
 
-            <p className="text-[14px] text-white/55 leading-relaxed mb-5 max-w-md">
+            <p className="text-[14px] text-ink/55 leading-relaxed mb-5 max-w-md">
               Most startups lose time and money in the gap between design and production. Miscommunication, endless revisions, interfaces that look great but don't convert.
             </p>
 
-            <p className="text-[14px] text-white/55 leading-relaxed mb-10 max-w-md">
+            <p className="text-[14px] text-ink/55 leading-relaxed mb-10 max-w-md">
               I close that gap. Product thinking, UX craft, and frontend development in one workflow so your team moves faster and your users get something that actually works.
             </p>
 
@@ -99,10 +99,10 @@ export function ValueProp() {
 
                   {/* Text */}
                   <div>
-                    <h3 className="font-display text-[20px] sm:text-[22px] text-white leading-tight tracking-tight mb-3 group-hover:text-amber transition-colors duration-300">
+                    <h3 className="font-display text-[20px] sm:text-[22px] text-ink leading-tight tracking-tight mb-3 group-hover:text-amber transition-colors duration-300">
                       {card.title}
                     </h3>
-                    <p className="text-[13px] text-white/50 leading-relaxed">
+                    <p className="text-[13px] text-ink/50 leading-relaxed">
                       {card.body}
                     </p>
                   </div>
