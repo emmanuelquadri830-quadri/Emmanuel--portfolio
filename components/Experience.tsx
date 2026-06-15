@@ -107,7 +107,7 @@ function ExperienceRow({ entry }: { entry: ExperienceEntry }) {
     >
       {/* Left: period + badge */}
       <div className="flex lg:flex-col items-start gap-3 pt-0.5">
-        <span className="text-[12px] text-ink-muted tracking-wide leading-relaxed">
+        <span className="text-[14px] text-ink-muted tracking-wide leading-relaxed">
           {entry.period}
         </span>
         {entry.current && (
@@ -132,13 +132,13 @@ function ExperienceRow({ entry }: { entry: ExperienceEntry }) {
           {entry.role}
         </h3>
 
-        <p className="text-[12px] tracking-[0.12em] text-ink-muted mb-4">
+        <p className="text-[14px] tracking-[0.12em] text-ink-muted mb-4">
           {entry.company}
           <span className="mx-2 opacity-30">·</span>
           {entry.location}
         </p>
 
-        <p className="text-ink-muted text-[13px] leading-relaxed max-w-xl">
+        <p className="text-ink-muted text-[15px] leading-relaxed max-w-xl">
           {entry.description}
         </p>
       </div>

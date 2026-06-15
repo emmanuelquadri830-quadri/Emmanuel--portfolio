@@ -96,7 +96,7 @@ function FloatingInput({
         onChange={e => onChange(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`w-full bg-surface border rounded-xl px-4 pt-6 pb-3 text-[13px] text-ink focus:outline-none transition-all duration-200 ${
+        className={`w-full bg-surface border rounded-xl px-4 pt-6 pb-3 text-[15px] text-ink focus:outline-none transition-all duration-200 ${
           focused ? 'border-amber/60 shadow-[0_0_0_3px_rgba(200,150,90,0.08)]' : 'border-edge hover:border-edge/80'
         }`}
       />
@@ -139,7 +139,7 @@ function FloatingTextarea({
         onChange={e => onChange(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`w-full bg-surface border rounded-xl px-4 pt-8 pb-3 text-[13px] text-ink focus:outline-none resize-none transition-all duration-200 ${
+        className={`w-full bg-surface border rounded-xl px-4 pt-8 pb-3 text-[15px] text-ink focus:outline-none resize-none transition-all duration-200 ${
           focused ? 'border-amber/60 shadow-[0_0_0_3px_rgba(200,150,90,0.08)]' : 'border-edge hover:border-edge/80'
         }`}
       />
@@ -343,7 +343,7 @@ export function Contact() {
                 {/* Text */}
                 <div className="flex-1 min-w-0">
                   <p className="text-[9px] tracking-[0.2em] uppercase text-ink/35 mb-0.5">{card.label}</p>
-                  <p className={`text-[13px] truncate transition-colors duration-300 ${
+                  <p className={`text-[15px] truncate transition-colors duration-300 ${
                     hovered === card.label ? 'text-amber' : 'text-ink'
                   }`}>
                     {card.value}
@@ -377,7 +377,7 @@ export function Contact() {
           <a href="https://www.linkedin.com/in/emmanuel-quadri-uiux-%7E-ai-14101b241" target="_blank" rel="noopener noreferrer" className="hover:text-amber transition-colors duration-200">LI</a>
           <a href="https://www.behance.net/Quadriemmanueldesign" target="_blank" rel="noopener noreferrer" className="hover:text-amber transition-colors duration-200">BE</a>
         </div>
-        <span className="text-ink-muted">Quadri Emmanuel &mdash; 25&copy;</span>
+        <span className="text-ink-muted">Quadri Emmanuel &copy; 2025</span>
       </div>
     </section>
   )

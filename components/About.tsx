@@ -24,7 +24,7 @@ const stats = [
   {
     value: '500+',
     label: 'Research participants',
-    sub: '+25% usability · +30% customer satisfaction',
+    sub: '+25% usability  +30% customer satisfaction',
   },
 ]
 
@@ -98,14 +98,14 @@ export function About() {
               and clarity.
             </h2>
 
-            <p className="text-ink-muted text-sm leading-relaxed mb-5">
-              My name is Quadri Emmanuel Adetayo, and I'm a Senior Product Designer with 5+ years creating intuitive, user-centered
+            <p className="text-ink-muted text-base leading-relaxed mb-5">
+              My name is Quadri Emmanuel Adetayo, and I am a Senior Product Designer with 5+ years creating intuitive, user centered
               digital products across SaaS, EdTech, marketing, and enterprise platforms.
             </p>
-            <p className="text-ink-muted text-sm leading-relaxed">
+            <p className="text-ink-muted text-base leading-relaxed">
               Skilled in user research, wireframing, prototyping, usability
               testing, interaction design, and design systems. I work closely
-              with cross-functional teams to turn business goals into clear,
+              with cross functional teams to turn business goals into clear,
               accessible, effective experiences.
             </p>
           </motion.div>
@@ -128,8 +128,8 @@ export function About() {
                 <div className="font-display text-[52px] lg:text-[72px] leading-none text-amber mb-1">
                   {stat.value}
                 </div>
-                <p className="text-sm text-ink mb-1">{stat.label}</p>
-                <p className="text-[12px] text-ink-muted">{stat.sub}</p>
+                <p className="text-base text-ink mb-1">{stat.label}</p>
+                <p className="text-[14px] text-ink-muted">{stat.sub}</p>
               </motion.div>
             ))}
           </div>
@@ -146,7 +146,7 @@ export function About() {
           <p className="text-[11px] tracking-[0.22em] uppercase text-amber mb-4">
             Stack
           </p>
-          <h3 className="font-display text-2xl lg:text-3xl text-ink mb-16">
+          <h3 className="font-display text-3xl lg:text-4xl text-ink mb-16">
             Languages, frameworks, and tools I work with.
           </h3>
 
@@ -180,7 +180,7 @@ export function About() {
                         className="inline-flex items-center gap-2 sm:gap-3 px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl border border-edge bg-surface hover:border-amber/40 transition-colors duration-200 cursor-default"
                       >
                         <Icon style={{ color: tool.color }} className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
-                        <span className="text-[13px] sm:text-[15px] text-ink-muted">{tool.name}</span>
+                        <span className="text-[15px] sm:text-[17px] text-ink-muted">{tool.name}</span>
                       </div>
                     )
                   })}

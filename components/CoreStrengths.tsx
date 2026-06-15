@@ -16,7 +16,7 @@ const strengths = [
     ),
     title: 'Pixel Perfect',
     description:
-      'Every pixel has a reason. Good design isn\'t just how something looks — it\'s how it feels when someone actually uses it. I obsess over details so you don\'t have to.',
+      'Every pixel has a reason. Good design is not just how something looks. It is how it feels when someone actually uses it. I obsess over details so you do not have to.',
   },
   {
     num: '02',
@@ -29,7 +29,7 @@ const strengths = [
     ),
     title: 'High Quality',
     description:
-      'Clean code, fast load times, no shortcuts. Whether it\'s a marketing site or a full web app, what I ship holds up well after handoff — not just on launch day.',
+      'Clean code, fast load times, no shortcuts. Whether it is a marketing site or a full web app, what I ship holds up well after handoff, not just on launch day.',
   },
   {
     num: '03',
@@ -45,7 +45,7 @@ const strengths = [
     ),
     title: 'Creative Ideas',
     description:
-      'I listen before I design. Every project gets a fresh approach built around who it\'s actually for — not a recycled template. The goal is always something that feels right and works well.',
+      'I listen before I design. Every project gets a fresh approach built around who it is actually for, not a recycled template. The goal is always something that feels right and works well.',
   },
 ]
 
@@ -145,7 +145,7 @@ function StrengthCard({ s }: { s: typeof strengths[number] }) {
         </h3>
 
         {/* Description */}
-        <p className="text-[13.5px] leading-[1.8] text-ink/50 mb-10">
+        <p className="text-[15px] leading-[1.8] text-ink/50 mb-10">
           {s.description}
         </p>
 

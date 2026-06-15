@@ -13,7 +13,7 @@ const cards = [
       </svg>
     ),
     title: 'Interfaces that perform',
-    body: 'Every screen is designed around how your users actually think and move — not how it looks in a mockup. Conversion, clarity, and retention built in from the start.',
+    body: 'Every screen is designed around how your users actually think and move, not how it looks in a mockup. Conversion, clarity, and retention built in from the start.',
   },
   {
     num: '02',
@@ -25,8 +25,8 @@ const cards = [
         <path d="M17 5h2M5 5H7" />
       </svg>
     ),
-    title: 'AI-native by default',
-    body: 'I design for AI-powered products. Prompt flows, generative outputs, loading states, confidence indicators, and the edge cases most designers skip entirely.',
+    title: 'AI native by default',
+    body: 'I design for AI powered products. Prompt flows, generative outputs, loading states, confidence indicators, and the edge cases most designers skip entirely.',
   },
   {
     num: '03',
@@ -103,7 +103,7 @@ function ValueCard({ card }: { card: typeof cards[number] }) {
         >
           {card.title}
         </h3>
-        <p className="text-[13px] text-ink/50 leading-relaxed">
+        <p className="text-[15px] text-ink/50 leading-relaxed">
           {card.body}
         </p>
       </div>
@@ -152,11 +152,11 @@ export function ValueProp() {
               <em className="not-italic text-amber">actually ships.</em>
             </h2>
 
-            <p className="text-[14px] text-ink/55 leading-relaxed mb-5 max-w-md">
-              Most startups lose time and money in the gap between design and production. Miscommunication, endless revisions, interfaces that look great but don't convert.
+            <p className="text-base text-ink/55 leading-relaxed mb-5 max-w-md">
+              Most startups lose time and money in the gap between design and production. Miscommunication, endless revisions, interfaces that look great but do not convert.
             </p>
 
-            <p className="text-[14px] text-ink/55 leading-relaxed mb-10 max-w-md">
+            <p className="text-base text-ink/55 leading-relaxed mb-10 max-w-md">
               I close that gap. Product thinking, UX craft, and frontend development in one workflow so your team moves faster and your users get something that actually works.
             </p>
 
