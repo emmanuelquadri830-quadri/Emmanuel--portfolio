@@ -14,7 +14,7 @@ const stats = [
   {
     value: '5+',
     label: 'Years of Experience',
-    sub: 'SaaS, EdTech, marketing & enterprise platforms',
+    sub: 'SaaS, AI, EdTech, marketing & enterprise platforms',
   },
   {
     value: '60%',
@@ -100,7 +100,7 @@ export function About() {
 
             <p className="text-ink-muted text-base leading-relaxed mb-5">
               My name is Quadri Emmanuel Adetayo, and I am a Senior Product Designer with 5+ years creating intuitive, user centered
-              digital products across SaaS, EdTech, marketing, and enterprise platforms.
+              digital products across SaaS, AI, EdTech, marketing, and enterprise platforms.
             </p>
             <p className="text-ink-muted text-base leading-relaxed">
               Skilled in user research, wireframing, prototyping, usability
