@@ -28,6 +28,14 @@ const stats = [
   },
 ]
 
+const companies = [
+  'Punch Digital Agency',
+  'Greenware Academy',
+  'Shirewood Technologies',
+  'Flexisaf Edu',
+  'HNG',
+]
+
 interface Tool { name: string; icon: IconType; color: string }
 
 const stack: { num: string; category: string; tools: Tool[] }[] = [
@@ -72,67 +80,140 @@ const stack: { num: string; category: string; tools: Tool[] }[] = [
   },
 ]
 
+function Flourish({ flip }: { flip?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 60 40"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      className={`w-12 h-8 lg:w-16 lg:h-10 text-amber/50 ${flip ? 'scale-x-[-1]' : ''}`}
+    >
+      <path d="M2 20c12 0 18-14 30-14s18 14 28 14" />
+      <circle cx="56" cy="20" r="2.2" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
 export function About() {
   return (
     <section
       id="about"
-      className="px-8 lg:px-16 py-28 lg:py-36 bg-surface-2"
+      className="px-6 md:px-8 lg:px-16 py-28 lg:py-36 bg-surface-2"
     >
       <div className="max-w-7xl mx-auto">
-        {/* ── Bio + Stats grid ── */}
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-          {/* Bio column */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="text-[11px] tracking-[0.22em] uppercase text-amber block mb-8">
-              About
+
+        {/* ── Hero intro ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center text-center mb-20 lg:mb-28"
+        >
+          <span className="text-[11px] tracking-[0.22em] uppercase text-amber block mb-6">
+            About
+          </span>
+
+          <div className="flex items-center justify-center gap-2 lg:gap-6">
+            <span className="hidden sm:block shrink-0">
+              <Flourish />
             </span>
-
-            <h2 className="font-display text-[36px] sm:text-[44px] lg:text-[60px] leading-tight mb-8">
-              Designing with<br />
-              <em className="italic">purpose</em>{' '}
-              and clarity.
+            <h2 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] leading-[1.02] tracking-tight text-ink">
+              The mind behind<br />
+              <em className="not-italic text-amber">every pixel.</em>
             </h2>
+            <span className="hidden sm:block shrink-0">
+              <Flourish flip />
+            </span>
+          </div>
 
-            <p className="text-ink-muted text-base leading-relaxed mb-5">
-              My name is Quadri Emmanuel Adetayo, and I am a Senior Product Designer with 5+ years creating intuitive, user centered
-              digital products across SaaS, AI, EdTech, marketing, and enterprise platforms.
-            </p>
-            <p className="text-ink-muted text-base leading-relaxed">
-              Skilled in user research, wireframing, prototyping, usability
-              testing, interaction design, and design systems. I work closely
-              with cross functional teams to turn business goals into clear,
-              accessible, effective experiences.
-            </p>
-          </motion.div>
+          <p className="mt-8 max-w-xl text-base sm:text-lg text-ink-muted leading-relaxed">
+            Hi, I am <strong className="text-ink font-medium">Quadri Emmanuel</strong>, a Senior Product Designer and Frontend Developer.
+            I design and build digital products with clarity, intention, and care.
+          </p>
 
-          {/* Stats column */}
-          <div className="space-y-0">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.value}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.1 + i * 0.12,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="border-b border-edge py-8 last:border-none"
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className="group relative mt-10 inline-flex items-center gap-3 px-7 py-3.5 bg-amber text-surface text-[11px] font-bold tracking-[0.18em] uppercase rounded-xl overflow-hidden transition-colors duration-300 hover:bg-amber/90"
+          >
+            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
+            Let&apos;s Talk
+          </motion.a>
+        </motion.div>
+
+        {/* ── About Me card ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="border border-edge rounded-2xl bg-surface px-7 sm:px-10 lg:px-14 py-10 lg:py-14"
+        >
+          <p className="text-ink-muted text-base leading-relaxed mb-5">
+            I have always loved how design can turn an idea into something people can actually use and enjoy.
+            Over the past 5+ years, I have worked across SaaS, AI, EdTech, marketing, and enterprise platforms,
+            helping teams create products that are clear, functional, and built to grow.
+          </p>
+          <p className="text-ink-muted text-base leading-relaxed mb-5">
+            As a <strong className="text-ink font-medium">Product Designer and Frontend Developer</strong>, I focus on simplifying
+            complex ideas and shaping them into intuitive interfaces. Whether it is designing a SaaS dashboard, building a high
+            converting landing page, or creating a scalable design system, I enjoy bringing structure and clarity to every project.
+          </p>
+          <p className="text-ink-muted text-base leading-relaxed">
+            I close the gap between design and code myself, working closely with cross functional teams to turn business goals into
+            clear, accessible, effective experiences, from research through to production ready interfaces.
+          </p>
+        </motion.div>
+
+        {/* ── Companies worked with ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-14 lg:mt-16"
+        >
+          <p className="text-[11px] tracking-[0.22em] uppercase text-ink-muted text-center mb-6">
+            Companies I&apos;ve worked with
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {companies.map((name) => (
+              <span
+                key={name}
+                className="px-4 py-2 rounded-full border border-edge text-[13px] text-ink-muted hover:border-amber/40 hover:text-ink transition-colors duration-200 cursor-default"
               >
-                <div className="font-display text-[52px] lg:text-[72px] leading-none text-amber mb-1">
-                  {stat.value}
-                </div>
-                <p className="text-base text-ink mb-1">{stat.label}</p>
-                <p className="text-[14px] text-ink-muted">{stat.sub}</p>
-              </motion.div>
+                {name}
+              </span>
             ))}
           </div>
+        </motion.div>
+
+        {/* ── Stats ── */}
+        <div className="grid sm:grid-cols-3 gap-8 sm:gap-6 mt-20 lg:mt-28">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.value}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{
+                duration: 0.7,
+                delay: 0.1 + i * 0.12,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="border-t border-edge pt-8"
+            >
+              <div className="font-display text-[52px] lg:text-[64px] leading-none text-amber mb-2">
+                {stat.value}
+              </div>
+              <p className="text-base text-ink mb-1">{stat.label}</p>
+              <p className="text-[14px] text-ink-muted">{stat.sub}</p>
+            </motion.div>
+          ))}
         </div>
 
         {/* ── Tools & Stack ── */}
@@ -159,7 +240,7 @@ export function About() {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: gi * 0.08, ease: [0.16, 1, 0.3, 1] }}
               >
-                {/* Row: number — divider — category label */}
+                {/* Row: number, divider, category label */}
                 <div className="flex items-center gap-5 mb-8">
                   <span className="font-display text-3xl text-ink-muted shrink-0">
                     {group.num}
