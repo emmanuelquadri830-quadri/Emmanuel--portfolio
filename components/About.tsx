@@ -19,7 +19,7 @@ const stats = [
   {
     value: '60%',
     label: 'Reduction in design discrepancies',
-    sub: 'via unified design system at Flexisaf',
+    sub: 'via unified design systems across projects',
   },
   {
     value: '250+',
