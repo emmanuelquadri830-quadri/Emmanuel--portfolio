@@ -100,3 +100,49 @@ body::after {
   background-repeat: repeat;
   background-size: 300px 300px;
 }
+
+.group\/card:has(img[src="/images/vivafemini-2.png"]) > div:last-child > div:first-child {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(145deg, var(--cover-bg), color-mix(in srgb, var(--cover-bg) 70%, #111 30%));
+}
+
+.group\/card:has(img[src="/images/vivafemini-2.png"]) > div:last-child > div:first-child {
+  --cover-bg: #8fbce8;
+}
+
+.group\/card:has(img[src="/images/vivafemini-2.png"]) > div:last-child > div:first-child::before {
+  position: absolute;
+  top: 9%;
+  left: 50%;
+  z-index: 2;
+  width: clamp(3.5rem, 8vw, 5.5rem);
+  height: 1.35rem;
+  border-radius: 999px;
+  background: #050608;
+  content: '';
+  transform: translateX(-50%);
+}
+
+.group\/card:has(img[src="/images/vivafemini-2.png"]) > div:last-child > div:first-child img {
+  position: relative;
+  z-index: 1;
+  width: clamp(9rem, 24vw, 15.5rem);
+  height: 92%;
+  padding: 5px;
+  border: 7px solid #17191d;
+  border-radius: 2.8rem;
+  background: #0d0f12;
+  box-shadow: 0 28px 45px rgba(17, 24, 39, 0.35);
+  object-fit: contain;
+  transform: rotate(-2deg);
+  transition: transform 700ms ease;
+}
+
+.group\/card:has(img[src="/images/vivafemini-2.png"]):hover > div:last-child > div:first-child img {
+  transform: rotate(0deg) scale(1.025);
+}
+

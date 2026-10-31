@@ -46,7 +46,7 @@ export function Hero() {
             variants={fadeUp}
             className="text-[11px] tracking-[0.22em] uppercase text-amber"
           >
-            AI Enhanced Product Designer & Frontend Developer   5+ years crafting intuitive digital experiences
+            Senior Product Designer   5+ years across fintech, SaaS, EdTech, healthcare, and AI
           </motion.p>
 
           <motion.h1
@@ -65,7 +65,7 @@ export function Hero() {
             variants={fadeUp}
             className="text-ink-muted text-sm leading-relaxed max-w-xs"
           >
-            Turning business goals into clear, accessible experiences across SaaS, EdTech, and enterprise platforms.
+            Bridging design and engineering to take digital products from concept to production in Figma, design systems, and Next.js.
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-wrap gap-6 items-center pt-2">

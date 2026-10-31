@@ -1,0 +1,7 @@
+Agri-farm/
+.agents/
+.venv/
+next-dev.out.log
+next-dev.err.log
+tsconfig.tsbuildinfo
+.codex-tmp/

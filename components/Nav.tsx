@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 const links = [
@@ -11,6 +11,8 @@ const links = [
   { label: 'About',      href: '#about' },
   { label: 'Contact',    href: '#contact' },
 ]
+
+const resumeHref = '/Quadri_Emmanuel_Resume.pdf'
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme()
@@ -75,11 +77,20 @@ export function Nav() {
             <a
               key={link.label}
               href={link.href}
-              className="text-[11px] tracking-[0.2em] uppercase text-ink-muted hover:text-ink transition-colors duration-200"
+              className="text-[16px] font-medium tracking-[0.2em] uppercase text-ink-muted hover:text-ink transition-colors duration-200"
             >
               {link.label}
             </a>
           ))}
+          <a
+            href={resumeHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-1.5 text-[16px] font-medium tracking-[0.2em] uppercase text-amber hover:text-ink transition-colors duration-200"
+          >
+            Resume
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
           <ThemeToggle />
         </nav>
 
@@ -116,11 +127,21 @@ export function Nav() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-[13px] tracking-[0.2em] uppercase text-ink-muted hover:text-amber transition-colors duration-200 py-1"
+                className="text-[16px] font-medium tracking-[0.2em] uppercase text-ink-muted hover:text-amber transition-colors duration-200 py-1"
               >
                 {link.label}
               </a>
             ))}
+            <a
+              href={resumeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 text-[16px] font-medium tracking-[0.2em] uppercase text-amber hover:text-ink transition-colors duration-200 py-1"
+            >
+              Resume
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

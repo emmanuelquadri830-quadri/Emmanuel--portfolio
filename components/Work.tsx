@@ -1,390 +1,323 @@
-'use client'
+﻿'use client'
 
-import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { motion, useTransform, useSpring, useMotionValue } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { projects as portfolioProjects } from '@/lib/projects'
 
 type Project = {
-  name: string
+  number: string
+  category: string
+  title: string
   image: string
-  href: string
+  imageFit?: 'cover' | 'contain'
+  imageMobileFit?: 'cover' | 'contain'
+  imagePosition?: string
+  imageBackground?: string
+  coverStyle?: 'editorial'
+  year: string
+  description: string
+  tags: string[]
+  gallery?: string[]
+  galleryUrl?: string
+  galleryFit?: 'cover' | 'contain'
+  galleryDevice?: 'browser' | 'laptop'
+  href?: string
+  linkLabel?: string
+  caseStudyHref?: string
 }
 
-const projects: Project[] = [
-  {
-    name: 'DRIVEME',
-    image: 'https://mir-s3-cdn-cf.behance.net/projects/404/eecd3d215952939.Y3JvcCwxMTYyLDkwOSwxMTcsMA.png',
-    href: 'https://www.behance.net/gallery/215952939/DRIVEME-Car-Rental-App-(Case-study)',
-  },
-  {
-    name: 'BuddyVest',
-    image: 'https://mir-s3-cdn-cf.behance.net/projects/404/02fbba202100551.Y3JvcCwxODUxLDE0NDgsNDEsMA.png',
-    href: 'https://www.behance.net/gallery/202100551/(BuddyVest)-Save-and-Budget-App-UIUX-Case-study',
-  },
-  {
-    name: 'Scupay',
-    image: 'https://mir-s3-cdn-cf.behance.net/projects/404/288b7c205443583.Y3JvcCwxNDEyLDExMDQsNzYsNjI.jpg',
-    href: 'https://www.behance.net/gallery/205443583/Scupay-A-website-Case-study',
-  },
-  {
-    name: 'Teacher Dashboard',
-    image: 'https://mir-s3-cdn-cf.behance.net/projects/404/b46f5d206602791.Y3JvcCwyMTQwLDE2NzMsMCw3OQ.png',
-    href: 'https://www.behance.net/gallery/206602791/Teacher-managements-dashboard',
-  },
-]
+const projectOrder = ['07', '06', '05', '08', '09', '01', '11', '10']
 
-type AnimationPhase = 'scatter' | 'line' | 'circle' | 'arc'
+const projects: Project[] = [...portfolioProjects]
+  .filter((project) => projectOrder.includes(project.id))
+  .sort((a, b) => projectOrder.indexOf(a.id) - projectOrder.indexOf(b.id))
+  .map((project, index) => ({
+    number: String(index + 1).padStart(2, '0'),
+    category: project.role,
+    title: project.title,
+    image: project.image ?? '',
+    imageFit: project.imageFit,
+    imageMobileFit: project.imageMobileFit,
+    imagePosition: project.imagePosition,
+    imageBackground: project.imageBackground,
+    coverStyle: project.coverStyle,
+    year: project.year,
+    description: project.description,
+    tags: project.tags,
+    gallery: project.gallery,
+    galleryUrl: project.galleryUrl,
+    galleryFit: project.galleryFit,
+    galleryDevice: project.galleryDevice,
+    href: project.link,
+    linkLabel: project.linkLabel,
+    caseStudyHref: project.caseStudyLink,
+  }))
 
-const TOTAL_IMAGES = 20
-const MAX_SCROLL = 1400
-const IMG_WIDTH = 104
-const IMG_HEIGHT = 138
+function ProjectLink({ href, children }: { href: string; children: string }) {
+  const isExternal = href.startsWith('http')
 
-const ITEMS = Array.from({ length: TOTAL_IMAGES }, (_, i) => projects[i % projects.length])
-
-const lerp = (start: number, end: number, t: number) => start * (1 - t) + end * t
-
-interface FlipCardProps {
-  project: Project
-  index: number
-  phase: AnimationPhase
-  target: { x: number; y: number; rotation: number; scale: number; opacity: number }
-}
-
-function FlipCard({ project, target }: FlipCardProps) {
   return (
-    <motion.div
-      animate={{
-        x: target.x,
-        y: target.y,
-        rotate: target.rotation,
-        scale: target.scale,
-        opacity: target.opacity,
-      }}
-      transition={{ type: 'spring', stiffness: 80, damping: 22 }}
-      style={{
-        position: 'absolute',
-        width: IMG_WIDTH,
-        height: IMG_HEIGHT,
-        transformStyle: 'preserve-3d',
-        perspective: '1000px',
-      }}
-      className="cursor-pointer group"
+    <a
+      href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      className="group inline-flex shrink-0 items-center gap-2 border-b border-black/40 pb-1.5 text-[10px] font-medium uppercase tracking-[0.12em] text-[#181818] transition-colors hover:border-black dark:border-[#D7E2EA]/50 dark:text-[#D7E2EA] dark:hover:border-[#D7E2EA] sm:gap-3 sm:text-[12px] sm:tracking-[0.16em]"
     >
-      <motion.div
-        className="relative h-full w-full"
-        style={{ transformStyle: 'preserve-3d' }}
-        transition={{ duration: 0.6, type: 'spring', stiffness: 260, damping: 20 }}
-        whileHover={{ rotateY: 180 }}
-      >
-        {/* Front face */}
-        <div
-          className="absolute inset-0 h-full w-full overflow-hidden rounded-xl shadow-lg bg-surface-2"
-          style={{ backfaceVisibility: 'hidden' }}
-        >
-          <img
-            src={project.image}
-            alt={project.name}
-            referrerPolicy="no-referrer"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent" />
-        </div>
+      {children}
+      <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+        ↗
+      </span>
+    </a>
+  )
+}
 
-        {/* Back face — clickable link */}
-        <a
-          href={project.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="absolute inset-0 h-full w-full overflow-hidden rounded-xl shadow-lg bg-surface-2 flex flex-col items-center justify-center p-3 border border-amber/30"
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+function imageFitClass(fit: 'cover' | 'contain' | undefined, mobileFit: 'cover' | 'contain' | undefined) {
+  const desktopClass = fit === 'cover' ? 'object-cover' : 'object-contain'
+  const mobileClass = mobileFit === 'cover' ? 'max-sm:object-cover' : mobileFit === 'contain' ? 'max-sm:object-contain' : ''
+
+  return `${desktopClass} ${mobileClass}`
+}
+
+function ProjectGallery({ slides, title, url = '', fit = 'cover', device = 'browser' }: { slides: string[]; title: string; url?: string; fit?: 'cover' | 'contain'; device?: 'browser' | 'laptop' }) {
+  const [activeSlide, setActiveSlide] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const hasMultipleSlides = slides.length > 1
+
+  useEffect(() => {
+    if (!hasMultipleSlides || paused) return
+
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % slides.length)
+    }, 5000)
+
+    return () => window.clearInterval(timer)
+  }, [activeSlide, hasMultipleSlides, paused, slides.length])
+
+  const moveSlide = (direction: number) => {
+    setActiveSlide((current) => (current + direction + slides.length) % slides.length)
+  }
+
+  return (
+    <div
+      className="relative h-full min-h-[280px] w-full overflow-hidden bg-[radial-gradient(circle_at_70%_100%,rgba(16,185,129,0.34),transparent_46%),linear-gradient(145deg,#070909,#0B1010)] sm:min-h-0 xl:min-h-0"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
+    >
+      <AnimatePresence initial={false} mode="wait">
+        <motion.div
+          key={slides[activeSlide]}
+          initial={{ opacity: 0, scale: 1.025 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.985 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className={
+            device === 'laptop'
+              ? 'absolute inset-0 flex items-center justify-center'
+              : 'absolute inset-3 flex flex-col overflow-hidden rounded-xl border border-white/20 bg-white shadow-[0_24px_70px_rgba(0,0,0,0.42)] sm:inset-5 sm:rounded-2xl'
+          }
         >
-          <p className="text-[9px] font-bold text-amber uppercase tracking-widest mb-1.5 text-center">
-            {project.name}
-          </p>
-          <p className="text-[11px] font-medium text-ink/80 text-center">View case study →</p>
-        </a>
-      </motion.div>
-    </motion.div>
+          <div
+            className={
+              device === 'laptop'
+                ? 'flex aspect-[16/10] w-[calc(100%-1.5rem)] max-w-[1100px] flex-col sm:w-[calc(100%-5rem)] xl:w-[calc(100%-3rem)]'
+                : 'contents'
+            }
+          >
+            <div
+              className={
+                device === 'laptop'
+                  ? 'relative flex min-h-0 flex-1 flex-col rounded-[14px] border border-white/20 bg-[#101112] p-[5px] shadow-[0_26px_70px_rgba(0,0,0,0.55)] sm:rounded-[20px] sm:border-[2px] sm:p-[7px]'
+                  : 'contents'
+              }
+            >
+              {device === 'laptop' && (
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1/2 top-[2px] z-10 h-1 w-1 -translate-x-1/2 rounded-full bg-white/25 sm:top-[3px]"
+                />
+              )}
+
+              <div
+                className={
+                  device === 'laptop'
+                    ? 'flex min-h-0 flex-1 flex-col overflow-hidden rounded-[9px] bg-white sm:rounded-[13px]'
+                    : 'contents'
+                }
+              >
+                <div
+                  className={`relative flex shrink-0 items-center border-b border-black/10 bg-[#F5F3EF] px-3 sm:h-10 sm:px-4 ${
+                    device === 'laptop' ? 'h-6' : 'h-8'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5" aria-hidden="true">
+                    <span className="h-2 w-2 rounded-full bg-black/15 sm:h-2.5 sm:w-2.5" />
+                    <span className="h-2 w-2 rounded-full bg-black/15 sm:h-2.5 sm:w-2.5" />
+                    <span className="h-2 w-2 rounded-full bg-black/15 sm:h-2.5 sm:w-2.5" />
+                  </div>
+                  {url && (
+                    <span className="absolute left-1/2 max-w-[62%] -translate-x-1/2 truncate rounded-md bg-[#E8E5DF] px-3 py-1 [font-family:var(--font-jetbrains-mono)] text-[8px] tracking-[0.04em] text-black/45 sm:text-[10px]">
+                      {url}
+                    </span>
+                  )}
+                </div>
+
+                <img
+                  src={slides[activeSlide]}
+                  alt={`${title} screen ${activeSlide + 1} of ${slides.length}`}
+                  referrerPolicy="no-referrer"
+                  className={`h-full min-h-0 w-full flex-1 bg-[#F5F3EF] object-top ${
+                    fit === 'cover' ? 'object-cover' : 'object-contain'
+                  }`}
+                />
+              </div>
+            </div>
+
+            {device === 'laptop' && (
+              <div aria-hidden="true" className="relative h-3 shrink-0 sm:h-4">
+                <span className="absolute left-1/2 top-0 h-2.5 w-[112%] -translate-x-1/2 rounded-b-[55%] bg-gradient-to-b from-[#D8D9DA] via-[#929496] to-[#4D4F52] shadow-[0_8px_16px_rgba(0,0,0,0.45)]" />
+                <span className="absolute left-1/2 top-0 h-1.5 w-16 -translate-x-1/2 rounded-b-lg bg-[#5F6164] sm:w-24" />
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {hasMultipleSlides && (
+        <>
+          <button
+            type="button"
+            onClick={() => moveSlide(-1)}
+            aria-label={`Show previous ${title} screen`}
+            className="absolute inset-y-0 left-0 z-10 flex w-16 items-center justify-center text-[22px] text-white"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            onClick={() => moveSlide(1)}
+            aria-label={`Show next ${title} screen`}
+            className="absolute inset-y-0 right-0 z-10 flex w-16 items-center justify-center text-[22px] text-white"
+          >
+            →
+          </button>
+          <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-2 shadow-lg backdrop-blur-md">
+            {slides.map((slide, index) => (
+              <button
+                key={slide}
+                type="button"
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Show ${title} screen ${index + 1}`}
+                aria-current={activeSlide === index ? 'true' : undefined}
+                className={`h-1.5 rounded-full ${activeSlide === index ? 'w-6 bg-emerald-400' : 'w-1.5 bg-white/45'}`}
+              />
+            ))}
+          </div>
+          <span className="absolute right-4 top-4 z-10 rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-[10px] font-medium tracking-[0.16em] text-white backdrop-blur-md">
+            {String(activeSlide + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+          </span>
+        </>
+      )}
+    </div>
+  )
+}
+
+function ProjectCard({ project, totalCards }: { project: Project; totalCards: number }) {
+  return (
+    <div className="relative mb-16 last:mb-0 sm:mb-20 lg:mb-28">
+      <motion.article
+        initial={{ opacity: 0, y: 80 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="relative h-auto lg:h-[clamp(620px,calc(100svh-10rem),740px)]"
+      >
+        <motion.div className="group/card flex h-auto origin-center flex-col overflow-hidden rounded-2xl border border-black/10 bg-white p-3 text-[#181818] shadow-[0_18px_55px_rgba(0,0,0,0.11)] dark:border-white/15 dark:bg-[#0C0C0C] dark:text-[#D7E2EA] sm:p-4 md:rounded-3xl lg:h-full">
+          <div className="grid grid-cols-1 items-start gap-4 px-2 pb-5 pt-2 sm:grid-cols-[auto_1fr_auto] sm:items-end sm:gap-x-6 sm:gap-y-5 sm:px-3 sm:pb-6 sm:pt-3 md:gap-x-10">
+            <p className="text-[10px] font-medium tabular-nums tracking-[0.18em] text-black/50 dark:text-[#D7E2EA]/50 sm:pb-1 sm:text-[11px]">
+              {project.number} / {String(totalCards).padStart(2, '0')}
+            </p>
+            <div className="min-w-0">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.22em] text-black/50 dark:text-[#D7E2EA]/50 sm:text-[11px]">
+                {project.category} · {project.year}
+              </p>
+              <h3 className="text-[18px] font-medium leading-tight text-[#181818] dark:text-[#D7E2EA] sm:text-[20px] md:text-[24px]">
+                {project.title}
+              </h3>
+            </div>
+
+            {(project.href || project.caseStudyHref) && (
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:justify-end sm:gap-x-6 sm:pb-1">
+                {project.caseStudyHref && <ProjectLink href={project.caseStudyHref}>Read Case Study</ProjectLink>}
+                {project.href && (
+                  <ProjectLink href={project.href}>{project.linkLabel ?? (project.caseStudyHref ? 'Visit Live' : 'View Project')}</ProjectLink>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="grid min-h-0 flex-1 gap-3 overflow-hidden rounded-xl border border-black/10 dark:border-white/10 sm:gap-4 md:rounded-2xl lg:grid-cols-[minmax(0,1fr)_clamp(280px,27vw,340px)] lg:gap-0">
+            <div
+              className={`overflow-hidden rounded-lg bg-neutral-200 dark:bg-black sm:rounded-xl lg:rounded-none ${
+                project.gallery?.length
+                  ? 'min-h-[clamp(190px,32svh,260px)] sm:aspect-[16/9] sm:min-h-0 lg:aspect-auto'
+                  : 'aspect-[4/3] min-h-0 sm:aspect-[16/9] lg:aspect-auto'
+              }`}
+            >
+              {project.gallery?.length ? (
+                <ProjectGallery
+                  slides={project.gallery}
+                  title={project.title}
+                  url={project.galleryUrl}
+                  fit={project.galleryFit}
+                  device={project.galleryDevice}
+                />
+              ) : (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  referrerPolicy="no-referrer"
+                  style={{ objectPosition: project.imagePosition ?? 'center', backgroundColor: project.imageBackground ?? '#EEF0F3' }}
+                  className={`h-full w-full ${imageFitClass(project.imageFit, project.imageMobileFit)}`}
+                />
+              )}
+            </div>
+
+            <div className="flex flex-col justify-between rounded-lg border border-black/10 bg-[#F5F5F3] p-4 dark:border-white/10 dark:bg-[#111111] sm:rounded-xl sm:p-5 md:p-7 lg:rounded-none lg:border-l lg:border-t-0">
+              <div>
+                <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.22em] text-black/40 dark:text-[#D7E2EA]/40 sm:text-[11px]">
+                  Project overview
+                </p>
+                <p className="text-[14px] leading-relaxed text-black/70 dark:text-[#D7E2EA]/75 sm:text-[15px]">
+                  {project.description}
+                </p>
+              </div>
+
+              <p className="mt-5 text-[10px] font-medium uppercase leading-6 tracking-[0.16em] text-black/50 dark:text-[#D7E2EA]/50 sm:mt-7 sm:text-[11px]">
+                {project.tags.join(' / ')}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.article>
+    </div>
   )
 }
 
 export function Work() {
-  const [introPhase, setIntroPhase] = useState<AnimationPhase>('scatter')
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 })
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  // Refs readable inside event handlers without stale closures
-  const isInView = useRef(false)
-  const introComplete = useRef(false)
-  const morphValueRef = useRef(0)
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-    const resizeObs = new ResizeObserver((entries) => {
-      const { width, height } = entries[0].contentRect
-      setContainerSize({ width, height })
-    })
-    resizeObs.observe(el)
-    setContainerSize({ width: el.offsetWidth, height: el.offsetHeight })
-
-    // Only intercept scroll when section is substantially on screen
-    const intersectObs = new IntersectionObserver(
-      ([entry]) => { isInView.current = entry.intersectionRatio >= 0.5 },
-      { threshold: 0.5 }
-    )
-    intersectObs.observe(el)
-
-    return () => { resizeObs.disconnect(); intersectObs.disconnect() }
-  }, [])
-
-  const virtualScroll = useMotionValue(0)
-  const scrollRef = useRef(0)
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const handleWheel = (e: WheelEvent) => {
-      // Don't touch scroll if section isn't substantially in view
-      if (!isInView.current) return
-
-      const scrollingDown = e.deltaY > 0
-      const scrollingUp = e.deltaY < 0
-
-      // During intro animation: block downward escape so the circle plays fully
-      if (!introComplete.current) {
-        if (scrollingDown) e.preventDefault()
-        return
-      }
-
-      const atTop = scrollRef.current <= 0 && scrollingUp
-      // Only release downward when the spring has visually caught up (arc fully formed)
-      const atBottom = scrollRef.current >= MAX_SCROLL && scrollingDown && morphValueRef.current >= 0.94
-
-      if (atTop || atBottom) return
-
-      e.preventDefault()
-      // Cap per-event delta so trackpad momentum bursts don't teleport cards
-      const clamped = Math.min(Math.abs(e.deltaY), 60) * Math.sign(e.deltaY)
-      const next = Math.min(Math.max(scrollRef.current + clamped, 0), MAX_SCROLL)
-      scrollRef.current = next
-      virtualScroll.set(next)
-    }
-
-    let touchStartY = 0
-    const handleTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY }
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isInView.current || !introComplete.current) return
-      const deltaY = touchStartY - e.touches[0].clientY
-      touchStartY = e.touches[0].clientY
-      const atTop = scrollRef.current <= 0 && deltaY < 0
-      const atBottom = scrollRef.current >= MAX_SCROLL && deltaY > 0 && morphValueRef.current >= 0.94
-      if (atTop || atBottom) return
-      e.preventDefault()
-      const next = Math.min(Math.max(scrollRef.current + deltaY, 0), MAX_SCROLL)
-      scrollRef.current = next
-      virtualScroll.set(next)
-    }
-
-    container.addEventListener('wheel', handleWheel, { passive: false })
-    container.addEventListener('touchstart', handleTouchStart, { passive: true })
-    container.addEventListener('touchmove', handleTouchMove, { passive: false })
-    return () => {
-      container.removeEventListener('wheel', handleWheel)
-      container.removeEventListener('touchstart', handleTouchStart)
-      container.removeEventListener('touchmove', handleTouchMove)
-    }
-  }, [virtualScroll])
-
-  // Tighter springs = less lag, cards snap to position instead of drifting
-  const morphProgress = useTransform(virtualScroll, [0, 600], [0, 1])
-  const smoothMorph = useSpring(morphProgress, { stiffness: 80, damping: 28 })
-  const scrollRotate = useTransform(virtualScroll, [600, 1400], [0, 360])
-  const smoothScrollRotate = useSpring(scrollRotate, { stiffness: 80, damping: 28 })
-
-  const mouseX = useMotionValue(0)
-  const smoothMouseX = useSpring(mouseX, { stiffness: 40, damping: 22 })
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect()
-      const normalizedX = ((e.clientX - rect.left) / rect.width) * 2 - 1
-      mouseX.set(normalizedX * 100)
-    }
-    container.addEventListener('mousemove', handleMouseMove)
-    return () => container.removeEventListener('mousemove', handleMouseMove)
-  }, [mouseX])
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setIntroPhase('line'), 500)
-    const t2 = setTimeout(() => {
-      setIntroPhase('circle')
-      introComplete.current = true  // unlock scroll capture after circle forms
-    }, 2500)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
-  }, [])
-
-  const scatterPositions = useMemo(
-    () =>
-      ITEMS.map(() => ({
-        x: (Math.random() - 0.5) * 1500,
-        y: (Math.random() - 0.5) * 1000,
-        rotation: (Math.random() - 0.5) * 180,
-        scale: 0.6,
-        opacity: 0,
-      })),
-    []
-  )
-
-  const [morphValue, setMorphValue] = useState(0)
-  const [rotateValue, setRotateValue] = useState(0)
-  const [parallaxValue, setParallaxValue] = useState(0)
-
-  useEffect(() => {
-    const u1 = smoothMorph.on('change', (v) => { setMorphValue(v); morphValueRef.current = v })
-    const u2 = smoothScrollRotate.on('change', setRotateValue)
-    const u3 = smoothMouseX.on('change', setParallaxValue)
-    return () => { u1(); u2(); u3() }
-  }, [smoothMorph, smoothScrollRotate, smoothMouseX])
-
-  const contentOpacity = useTransform(smoothMorph, [0.8, 1], [0, 1])
-  const contentY = useTransform(smoothMorph, [0.8, 1], [20, 0])
-
   return (
-    <section id="work" className="relative border-y border-edge bg-surface">
-      {/* Ambient gold glow */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(200,150,90,0.12)_0%,transparent_60%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber/40 to-transparent" />
+    <section id="work" className="relative overflow-clip border-y border-edge bg-surface px-4 py-24 sm:px-6 md:px-8 lg:px-16 lg:py-32">
+      <div className="mx-auto w-full max-w-[1240px]">
+        <div className="mb-14 sm:mb-20">
+          <p className="mb-4 text-[15px] font-medium uppercase tracking-[0.36em] text-amber/75">Selected Projects</p>
+          <h2 className="font-display text-4xl tracking-tight text-ink sm:text-5xl md:text-6xl">Things I&apos;ve designed</h2>
+        </div>
 
-      {/* Interactive scroll container — full viewport height */}
-      <div
-        ref={containerRef}
-        className="relative w-full overflow-hidden"
-        style={{ height: '100svh', touchAction: 'none' }}
-      >
-        <div className="flex h-full w-full flex-col items-center justify-center">
-
-          {/* Headline shown during circle phase, fades as morph begins */}
-          <div className="absolute z-0 flex flex-col items-center justify-center text-center pointer-events-none top-1/2 -translate-y-1/2 px-6">
-            <motion.h2
-              initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-              animate={
-                introPhase === 'circle' && morphValue < 0.5
-                  ? { opacity: 1 - morphValue * 2, y: 0, filter: 'blur(0px)' }
-                  : { opacity: 0, filter: 'blur(10px)' }
-              }
-              transition={{ duration: 1 }}
-              className="font-display text-[clamp(3rem,8vw,6rem)] uppercase leading-none tracking-tight text-ink"
-            >
-              Selected Work
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={
-                introPhase === 'circle' && morphValue < 0.5
-                  ? { opacity: 0.5 - morphValue }
-                  : { opacity: 0 }
-              }
-              transition={{ duration: 1, delay: 0.2 }}
-              className="mt-5 text-[10px] font-medium tracking-[0.3em] uppercase text-amber"
-            >
-              SCROLL TO EXPLORE
-            </motion.p>
-          </div>
-
-          {/* Content shown after arc forms */}
-          <motion.div
-            style={{ opacity: contentOpacity, y: contentY }}
-            className="absolute top-[7%] z-10 flex flex-col items-center text-center pointer-events-none px-6"
-          >
-            <p className="text-[10px] font-medium uppercase tracking-[0.36em] text-amber/75 mb-4">
-              Selected Projects
-            </p>
-            <h2 className="font-display text-3xl md:text-5xl text-ink tracking-tight mb-4">
-              Things I've designed
-            </h2>
-            <p className="text-sm text-ink-muted max-w-md leading-relaxed">
-              A selection of product and UI/UX work: apps, dashboards, and websites built to be
-              clear, usable, and genuinely nice to use. Scroll to explore, hover to flip.
-            </p>
-          </motion.div>
-
-          {/* Cards */}
-          <div className="relative flex items-center justify-center w-full h-full">
-            {ITEMS.map((project, i) => {
-              let target = { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 }
-
-              if (introPhase === 'scatter') {
-                target = scatterPositions[i]
-              } else if (introPhase === 'line') {
-                const spacing = 90
-                const totalW = TOTAL_IMAGES * spacing
-                target = { x: i * spacing - totalW / 2, y: 0, rotation: 0, scale: 1, opacity: 1 }
-              } else {
-                const isMobile = containerSize.width < 768
-                const minDim = Math.min(containerSize.width, containerSize.height)
-
-                // Circle position
-                const circleRadius = Math.min(minDim * 0.48, 460)
-                const circleAngle = (i / TOTAL_IMAGES) * 360
-                const circleRad = (circleAngle * Math.PI) / 180
-                const circlePos = {
-                  x: Math.cos(circleRad) * circleRadius,
-                  y: Math.sin(circleRad) * circleRadius,
-                  rotation: circleAngle + 90,
-                }
-
-                // Arc: sized so edge cards sit at the left/right screen edges
-                // arcRadius derived from half-width ÷ cos(half-spread) so edges land exactly at edge
-                const spreadAngle = isMobile ? 90 : 120
-                const halfSpreadRad = ((spreadAngle / 2) * Math.PI) / 180
-                const arcRadius = (containerSize.width / 2) / Math.cos(halfSpreadRad)
-                // Apex sits at ~30% from top → -20% relative to flex center
-                const arcApexY = -containerSize.height * (isMobile ? 0.12 : 0.20)
-                const arcCenterY = arcApexY + arcRadius
-                const startAngle = -90 - spreadAngle / 2
-                const step = spreadAngle / (TOTAL_IMAGES - 1)
-                const scrollProgress = Math.min(Math.max(rotateValue / 360, 0), 1)
-                const boundedRotation = -scrollProgress * spreadAngle * 0.8
-                const currentArcAngle = startAngle + i * step + boundedRotation
-                const arcRad = (currentArcAngle * Math.PI) / 180
-                const arcPos = {
-                  x: Math.cos(arcRad) * arcRadius + parallaxValue,
-                  y: Math.sin(arcRad) * arcRadius + arcCenterY,
-                  rotation: currentArcAngle + 90,
-                  scale: isMobile ? 1.0 : 1.2,
-                }
-
-                target = {
-                  x: lerp(circlePos.x, arcPos.x, morphValue),
-                  y: lerp(circlePos.y, arcPos.y, morphValue),
-                  rotation: lerp(circlePos.rotation, arcPos.rotation, morphValue),
-                  scale: lerp(1, arcPos.scale, morphValue),
-                  opacity: 1,
-                }
-              }
-
-              return (
-                <FlipCard
-                  key={i}
-                  project={project}
-                  index={i}
-                  phase={introPhase}
-                  target={target}
-                />
-              )
-            })}
-          </div>
-          {/* Footer label — pinned to bottom of the scroll container */}
-          <div className="absolute bottom-6 left-0 right-0 z-10 flex items-center justify-center gap-3 text-[9px] font-medium uppercase tracking-[0.22em] text-ink-muted pointer-events-none">
-            <span className="h-px w-8 bg-amber/55" />
-            Behance case studies
-            <span className="h-px w-8 bg-amber/55" />
-          </div>
+        <div>
+          {projects.map((project) => (
+            <ProjectCard key={project.number} project={project} totalCards={projects.length} />
+          ))}
         </div>
       </div>
     </section>

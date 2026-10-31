@@ -24,16 +24,17 @@ const stats = [
   {
     value: '250+',
     label: 'Research participants',
-    sub: '+25% usability   +30% customer satisfaction',
+    sub: 'Validated flows and improved key task completion by 50%',
   },
 ]
 
 const companies = [
-  'Punch Digital Agency',
-  'Greenware Academy',
-  'Shirewood Technologies',
-  'Flexisaf Edu',
-  'HNG',
+  'VivaFemini',
+  'GreenWare Tech',
+  'Punch Group',
+  'Shirewood Technologies Limited',
+  'FlexiSAF Edusoft Limited',
+  'HNG Tech',
 ]
 
 interface Tool { name: string; icon: IconType; color: string }
@@ -100,49 +101,73 @@ export function About() {
   return (
     <section
       id="about"
-      className="px-6 md:px-8 lg:px-16 py-28 lg:py-36 bg-surface-2"
+      className="overflow-hidden bg-surface-2 px-4 pb-24 pt-0 sm:px-6 md:px-8 lg:px-16 lg:pb-36"
     >
       <div className="max-w-7xl mx-auto">
 
-        {/* ── Hero intro ── */}
+        {/* ── Hero intro and bike video ── */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center text-center mb-20 lg:mb-28"
+          className="relative left-1/2 mb-12 w-screen -ml-[50vw] overflow-hidden bg-black sm:mb-16 lg:mb-20"
         >
-          <span className="text-[11px] tracking-[0.22em] uppercase text-amber block mb-6">
-            About
-          </span>
+          {/* Frame matches the video's 1928x1072 shape so nothing is cropped */}
+          <div className="relative aspect-[1928/1072] w-full">
+            <video
+              muted
+              autoPlay
+              loop
+              playsInline
+              preload="auto"
+              className="absolute inset-0 h-full w-full object-cover object-center"
+            >
+              <source
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_054547_9875cfc5-155a-4229-8ec8-b7ba7125cbf8.mp4"
+                type="video/mp4"
+              />
+            </video>
 
-          <div className="flex items-center justify-center gap-2 lg:gap-6">
-            <span className="hidden sm:block shrink-0">
-              <Flourish />
-            </span>
-            <h2 className="font-display text-[40px] sm:text-[56px] lg:text-[72px] leading-[1.02] tracking-tight text-ink">
-              The mind behind<br />
-              <em className="not-italic text-amber">every pixel.</em>
-            </h2>
-            <span className="hidden sm:block shrink-0">
-              <Flourish flip />
-            </span>
+            <div className="pointer-events-none absolute inset-0 hidden bg-black/35 lg:block" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black lg:from-black/55 lg:via-black/20 lg:to-black/65" />
           </div>
 
-          <p className="mt-8 max-w-xl text-base sm:text-lg text-ink-muted leading-relaxed">
-            Hi, I am <strong className="text-ink font-medium">Quadri Emmanuel</strong>, a Senior Product Designer and Frontend Developer.
-            I design and build digital products with clarity, intention, and care.
-          </p>
+          {/* Below lg the text sits under the video; on lg+ it overlays it */}
+          <div className="relative flex flex-col items-center justify-center px-5 pb-16 pt-6 text-center text-white sm:px-8 sm:pb-20 lg:absolute lg:inset-0 lg:py-14">
+            <span className="mb-4 block text-[12px] font-semibold uppercase tracking-[0.22em] text-amber sm:mb-6 sm:text-[16px]">
+              About
+            </span>
 
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            className="group relative mt-10 inline-flex items-center gap-3 px-7 py-3.5 bg-amber text-surface text-[11px] font-bold tracking-[0.18em] uppercase rounded-xl overflow-hidden transition-colors duration-300 hover:bg-amber/90"
-          >
-            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
-            Let&apos;s Talk
-          </motion.a>
+            <div className="flex items-center justify-center gap-2 lg:gap-6">
+              <span className="hidden sm:block shrink-0">
+                <Flourish />
+              </span>
+              <h2 className="font-display text-[38px] font-semibold leading-[0.96] tracking-tight text-white drop-shadow-lg min-[360px]:text-[42px] sm:text-[clamp(3.5rem,8vw,7rem)]">
+                The mind behind<br />
+                <em className="not-italic text-amber">every pixel.</em>
+              </h2>
+              <span className="hidden sm:block shrink-0">
+                <Flourish flip />
+              </span>
+            </div>
+
+            <p className="mt-5 max-w-[340px] text-[15px] font-medium leading-7 text-white/90 drop-shadow-md sm:mt-8 sm:max-w-2xl sm:text-[clamp(1.0625rem,1.6vw,1.4rem)]">
+              Hi, I am <strong className="text-white font-medium">Quadri Emmanuel</strong>, a Senior Product Designer and Frontend Developer.
+              I design and build digital products with clarity, intention, and care.
+            </p>
+
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative mt-6 inline-flex items-center gap-3 overflow-hidden rounded-xl bg-amber px-5 py-3 text-[13px] font-bold uppercase tracking-[0.16em] text-surface shadow-lg transition-colors duration-300 hover:bg-amber/90 sm:mt-8 sm:px-7 sm:py-3.5 sm:text-[16px] sm:tracking-[0.18em]"
+            >
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
+              Let&apos;s Talk
+            </motion.a>
+          </div>
+
         </motion.div>
 
         {/* ── About Me card ── */}

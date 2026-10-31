@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Zap } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { FaLinkedinIn, FaBehance, FaXTwitter, FaInstagram } from 'react-icons/fa6'
 
 const cn = (...classes: (string | undefined | null | false)[]): string =>
@@ -191,20 +191,6 @@ export default function ParticleHero() {
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
       <div className="relative z-10 text-center px-6">
-        {/* Badge */}
-        <motion.div
-          custom={0}
-          variants={fadeUpVariants}
-          initial="hidden"
-          animate="visible"
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber/10 border border-amber/20 mb-6 backdrop-blur-sm max-w-[90vw]"
-        >
-          <Zap className="h-3.5 w-3.5 text-amber shrink-0" />
-          <span className="text-[13px] sm:text-base font-medium text-ink-muted truncate">
-            Product Designer | Frontend Developer | 5+ Years Experience
-          </span>
-        </motion.div>
-
         {/* Headline */}
         <motion.h1
           custom={1}
@@ -225,7 +211,7 @@ export default function ParticleHero() {
           animate="visible"
           className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-ink-muted mb-10 px-2"
         >
-          AI specialist and product designer building scalable digital products for startups, from UX strategy to production ready interfaces.
+          Product designer bridging design and engineering across fintech, SaaS, EdTech, healthcare, and AI.
         </motion.p>
 
         {/* CTA */}
@@ -236,12 +222,13 @@ export default function ParticleHero() {
           animate="visible"
         >
           <a
-            href="https://www.behance.net/Quadriemmanueldesign"
+            href="/Quadri_Emmanuel_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
+            download
             className="inline-flex items-center gap-2 px-6 py-3 bg-amber text-surface font-semibold rounded-lg hover:bg-amber/90 transition-colors duration-300"
           >
-            Explore Case Studies
+            Explore CV
             <ArrowRight className="h-5 w-5" />
           </a>
         </motion.div>
