@@ -1,0 +1,17 @@
+<svg width="416" height="552" viewBox="0 0 416 552" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="416" height="552" rx="36" fill="#10251A"/>
+  <rect x="24" y="24" width="368" height="504" rx="28" fill="#F7F4EA"/>
+  <path d="M24 376C73 346 121 344 168 374C216 405 267 405 392 351V528H24V376Z" fill="#2E7D4F"/>
+  <path d="M24 418C81 388 130 388 172 413C219 441 277 439 392 392V528H24V418Z" fill="#1D5B3A"/>
+  <circle cx="330" cy="92" r="32" fill="#F7B267"/>
+  <path d="M111 236C111 187 151 147 200 147C249 147 289 187 289 236V323H111V236Z" fill="#DCEEDC"/>
+  <path d="M200 116L315 221H85L200 116Z" fill="#245B3D"/>
+  <path d="M147 225H253V323H147V225Z" fill="#FFFFFF"/>
+  <path d="M167 245H195V323H167V245Z" fill="#2E7D4F"/>
+  <path d="M213 245H241V277H213V245Z" fill="#8CC084"/>
+  <path d="M84 323H326" stroke="#153D29" stroke-width="10" stroke-linecap="round"/>
+  <path d="M72 458C104 435 137 435 170 458C203 481 239 481 273 458C306 435 340 435 374 458" stroke="#F7F4EA" stroke-width="10" stroke-linecap="round"/>
+  <path d="M80 74H190" stroke="#10251A" stroke-width="12" stroke-linecap="round"/>
+  <path d="M80 102H150" stroke="#6C8B73" stroke-width="10" stroke-linecap="round"/>
+  <text x="80" y="505" fill="#F7F4EA" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">agri-farm</text>
+</svg>
